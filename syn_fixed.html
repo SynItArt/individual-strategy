@@ -1,0 +1,1155 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>신대식 · 종합 컨설팅 전문가 (2025.12월 현재)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        /* 뒤로 가기 헤더 스타일 */
+        .back-header {
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            background: rgba(26, 32, 44, 0.95);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            margin: -20px -20px 20px -20px;
+        }
+
+        .back-header a {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #60a5fa;
+            text-decoration: none;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+        }
+
+        .back-header a:hover {
+            background: rgba(96, 165, 250, 0.1);
+            color: #93c5fd;
+            transform: translateX(-5px);
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 50%, #60a5fa 100%);
+            color: white;
+            padding: 60px 40px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 20s linear infinite;
+        }
+
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+
+        .profile-section {
+            position: relative;
+            z-index: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        .profile-image {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            border: 5px solid rgba(255,255,255,0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            object-fit: cover;
+            background: white;
+        }
+
+        .profile-info {
+            flex: 1;
+            min-width: 300px;
+        }
+
+        .header h1 {
+            font-size: 3em;
+            margin-bottom: 15px;
+            font-weight: 700;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+
+        .header .title {
+            font-size: 1.5em;
+            margin-bottom: 10px;
+            opacity: 0.95;
+            font-weight: 600;
+        }
+
+        .header .subtitle {
+            font-size: 1.1em;
+            opacity: 0.9;
+            margin-top: 15px;
+        }
+
+        .content {
+            padding: 50px 40px;
+        }
+
+        .section {
+            margin-bottom: 50px;
+            animation: fadeIn 0.8s ease-in;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .section-title {
+            font-size: 2em;
+            color: #1e3a8a;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #3b82f6;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-title::before {
+            content: "▸";
+            font-size: 1.5em;
+            color: #3b82f6;
+        }
+
+        .intro-box {
+            background: linear-gradient(135deg, #f0f9ff 0%, #e0f2fe 100%);
+            padding: 40px;
+            border-radius: 20px;
+            border-left: 6px solid #3b82f6;
+            margin-bottom: 30px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .intro-box h3 {
+            color: #1e3a8a;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+        }
+
+        .intro-box p {
+            font-size: 1.1em;
+            line-height: 2;
+            color: #1e40af;
+        }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin: 30px 0;
+        }
+
+        .capability-card {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #e5e7eb;
+            transition: all 0.3s ease;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+
+        .capability-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.2);
+            border-color: #3b82f6;
+        }
+
+        .capability-card h4 {
+            color: #1e3a8a;
+            font-size: 1.4em;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .capability-card h4::before {
+            content: "✓";
+            width: 30px;
+            height: 30px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            font-size: 1.2em;
+        }
+
+        .capability-card ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .capability-card li {
+            padding: 8px 0;
+            color: #4b5563;
+            padding-left: 25px;
+            position: relative;
+        }
+
+        .capability-card li::before {
+            content: "•";
+            position: absolute;
+            left: 0;
+            color: #3b82f6;
+            font-weight: bold;
+            font-size: 1.5em;
+        }
+
+        .qualifications-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .qualification-category {
+            background: #f9fafb;
+            padding: 25px;
+            border-radius: 15px;
+            border-left: 5px solid #3b82f6;
+        }
+
+        .qualification-category h4 {
+            color: #1e3a8a;
+            font-size: 1.3em;
+            margin-bottom: 15px;
+        }
+
+        .qualification-item {
+            padding: 10px 0;
+            border-bottom: 1px solid #e5e7eb;
+            color: #4b5563;
+        }
+
+        .qualification-item:last-child {
+            border-bottom: none;
+        }
+
+        .qualification-item strong {
+            color: #1e3a8a;
+            display: block;
+            margin-bottom: 5px;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 15px;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #3b82f6 0%, #60a5fa 100%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #f9fafb;
+            border-radius: 15px;
+            transition: transform 0.3s ease;
+        }
+
+        .timeline-item:hover {
+            transform: translateX(10px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 30px;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #3b82f6;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #3b82f6;
+        }
+
+        .timeline-year {
+            font-weight: bold;
+            color: #3b82f6;
+            font-size: 1.1em;
+            margin-bottom: 8px;
+        }
+
+        .timeline-content {
+            color: #4b5563;
+            line-height: 1.8;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%);
+            padding: 30px;
+            border-radius: 15px;
+            border-left: 6px solid #f59e0b;
+            margin: 30px 0;
+        }
+
+        .highlight-box h4 {
+            color: #92400e;
+            font-size: 1.5em;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box ul {
+            list-style: none;
+            margin-top: 15px;
+        }
+
+        .highlight-box li {
+            padding: 10px 0;
+            color: #78350f;
+            padding-left: 30px;
+            position: relative;
+            font-size: 1.05em;
+        }
+
+        .highlight-box li::before {
+            content: "★";
+            position: absolute;
+            left: 0;
+            color: #f59e0b;
+            font-size: 1.2em;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+
+        .stat-card {
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);
+            transition: transform 0.3s ease;
+        }
+
+        .stat-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(59, 130, 246, 0.4);
+        }
+
+        .stat-number {
+            font-size: 3em;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+
+        .stat-label {
+            font-size: 1.1em;
+            opacity: 0.95;
+        }
+
+        .footer {
+            background: #1e3a8a;
+            color: white;
+            padding: 40px;
+            text-align: center;
+        }
+
+        .footer p {
+            margin: 10px 0;
+            opacity: 0.9;
+        }
+
+        .contact-info {
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid rgba(255,255,255,0.2);
+        }
+
+        .print-btn {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: linear-gradient(135deg, #3b82f6 0%, #60a5fa 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 50px;
+            font-size: 1.1em;
+            cursor: pointer;
+            box-shadow: 0 5px 20px rgba(59, 130, 246, 0.4);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .print-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(59, 130, 246, 0.5);
+        }
+
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .print-btn {
+                display: none;
+            }
+            .back-header {
+                display: none;
+            }
+            .container {
+                box-shadow: none;
+            }
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 5px 15px;
+            background: #3b82f6;
+            color: white;
+            border-radius: 20px;
+            font-size: 0.9em;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+
+        .badge-premium {
+            background: linear-gradient(135deg, #f59e0b 0%, #fbbf24 100%);
+        }
+
+        .badge-expert {
+            background: linear-gradient(135deg, #10b981 0%, #34d399 100%);
+        }
+
+        .contact-item {
+            color: white;
+            text-decoration: none;
+        }
+
+        .contact-item:hover {
+            background: rgba(255,255,255,0.25) !important;
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+        }
+
+        .contact-item:active {
+            transform: translateY(0);
+        }
+
+        .contact-item svg {
+            width: 24px;
+            height: 24px;
+            fill: currentColor;
+        }
+    </style>
+</head>
+<body>
+    <!-- 뒤로 가기 헤더 (올바른 위치: body 태그 바로 다음) -->
+    <div class="back-header">
+        <a href="https://synitart.github.io/individual-strategy/">
+            ← 개인사업자 페이지로 돌아가기
+        </a>
+    </div>
+
+    <div class="container">
+        <div class="header">
+            <div class="profile-section">
+                <img src="신대식 사진.png" alt="신대식" class="profile-image">
+                <div class="profile-info">
+                    <h1>신대식</h1>
+                    <div class="title">종합 컨설팅 전문가</div>
+                    <div class="subtitle">법무 · 재무 · 인공지능·빅데이터 분석 · 보험 · 개인연금(DB/DC/IRP) · 펀드·신탁 · 부동산투자· 경매 · 건물 안전관리</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="content">
+            <!-- 전문가 소개 - 신뢰감 강조 -->
+            <div class="section">
+                <div class="intro-box" style="background: linear-gradient(135deg, #f0f9ff 0%, #dbeafe 100%); border-left: 6px solid #1e3a8a;">
+                    <h3 style="font-size: 2em; margin-bottom: 25px;">💼 신대식 · 믿고 맡길 수 있는 종합 컨설팅 전문가</h3>
+                    <p style="font-size: 1.2em; line-height: 2; color: #1e40af; font-weight: 500;">
+                        <strong style="color: #1e3a8a; font-size: 1.1em;">25년 이상의 실무 경험</strong>과 <strong style="color: #1e3a8a; font-size: 1.1em;">10개 이상의 전문 자격증</strong>을 보유한 
+                        법무, 재무, 데이터 분석, 보험, 개인연금(DB/DC/IRP), 펀드/신탁, 부동산 경매, 건물 안전관리 분야의 <strong>종합 컨설팅 전문가</strong>입니다.
+                    </p>
+                    <p style="margin-top: 25px; font-size: 1.1em; line-height: 2; color: #1e40af;">
+                        법학 전공과 법무법인 경력을 바탕으로, <strong>회생/파산 실무</strong>와 <strong>부동산 경매 전문가</strong>로서 
+                        실무 경험을 쌓았습니다. 이후 <strong>MBA 과정</strong>을 통해 경영 전략과 재무 설계 역량을 강화하고, 
+                        <strong>병원 M&A 컨설팅</strong>과 <strong>장례식장 인허가·운영</strong> 경력을 통해 의료기관 및 특수 업종 컨설팅 역량을 확보했습니다. 
+                        또한 <strong>데이터 분석 및 AI 전문가 과정</strong>을 수료하여 디지털 시대의 컨설팅 역량을 갖추었습니다.
+                    </p>
+                    <p style="margin-top: 20px; font-size: 1.1em; line-height: 2; color: #1e40af;">
+                        최근에는 <strong>AFPK(Associate Financial Planner Korea)</strong> 자격을 취득하고, 
+                        <strong>생명보험/손해보험/변액보험 설계사</strong>, <strong>퇴직연금제도모집인</strong>, 
+                        <strong>펀드/신탁/부동산 투자권유대행인</strong> 자격을 보유하여 
+                        기업과 개인의 <strong>재무 설계 컨설팅</strong>을 제공하고 있습니다.
+                    </p>
+                    <p style="margin-top: 20px; font-size: 1.1em; line-height: 2; color: #1e40af;">
+                        또한 <strong>소방설비기사(전기·기계) 국가기술자격증</strong>을 보유하여 건물 안전관리 전문가로서 
+                        <strong>중대재해처벌법 대응</strong> 및 <strong>법인 부동산 안전 리스크 관리</strong> 컨설팅을 제공하고 있습니다.
+                    </p>
+                    <div style="margin-top: 30px; padding: 25px; background: rgba(30, 58, 138, 0.1); border-radius: 15px; border-left: 6px solid #1e3a8a;">
+                        <p style="font-size: 1.15em; font-weight: 600; color: #1e3a8a; line-height: 1.8;">
+                            법무, 재무, 데이터 분석, 보험, 개인연금(DB/DC/IRP), 펀드/신탁, 부동산 경매, 건물 안전관리 등 
+                            <strong>다양한 전문 분야의 지식과 경험을 통합</strong>하여 
+                            고객의 복잡한 문제를 해결하는 <strong style="font-size: 1.1em;">종합 컨설팅</strong>을 제공합니다.
+                        </p>
+                        <p style="margin-top: 15px; font-size: 1.05em; color: #1e40af; font-weight: 500;">
+                            ✓ 실무 경험 기반의 검증된 솔루션<br>
+                            ✓ 지속적인 학습과 전문성 강화<br>
+                            ✓ 고객 맞춤형 종합 컨설팅
+                        </p>
+                    </div>
+                    
+                    <!-- 인간적이고 문화적인 면모 -->
+                    <div style="margin-top: 30px; padding: 25px; background: linear-gradient(135deg, #fef3c7 0%, #fde68a 100%); border-radius: 15px; border-left: 6px solid #f59e0b;">
+                        <h4 style="color: #92400e; font-size: 1.4em; margin-bottom: 15px;">🌟 균형잡힌 전문가, 문화적 소양을 갖춘 컨설턴트</h4>
+                        <p style="color: #78350f; font-size: 1.05em; line-height: 2;">
+                            전문 분야의 역량 강화와 함께 <strong>문화적 소양과 삶의 질 향상</strong>에도 지속적으로 관심을 기울이고 있습니다. 
+                            <strong>시민도시아카데미</strong>와 <strong>시민조경아카데미</strong> 수료로 도시와 조경에 대한 이해를 넓혔고, 
+                            <strong>한국사능력검정시험 3급</strong> 취득으로 역사적 소양을 쌓았습니다. 
+                            <strong>귀촌(전원생활)교육</strong>과 <strong>귀농창업교육</strong>, <strong>농업기계안전교육</strong>을 통해 
+                            자연과 함께하는 삶에 대한 관심을 실천하고 있습니다.
+                        </p>
+                        <p style="margin-top: 15px; color: #78350f; font-size: 1.05em; line-height: 2;">
+                            <strong>제100회 전국체전 자원봉사</strong>와 <strong>수해복구지원</strong> 활동 등 
+                            사회 공헌에도 적극적으로 참여하며, 전문가로서의 역량과 함께 
+                            <strong>균형잡힌 삶과 문화적 소양</strong>을 바탕으로 고객과 더 깊이 있는 소통과 이해를 제공합니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 전문성 지표 - 신뢰성 수치로 먼저 제시 -->
+            <div class="section">
+                <h2 class="section-title">전문성 지표</h2>
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">２５+</div>
+                        <div class="stat-label">년 실무 경력</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">１０+</div>
+                        <div class="stat-label">전문 자격증 보유</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">9</div>
+                        <div class="stat-label">전문 분야</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">100%</div>
+                        <div class="stat-label">통합 솔루션</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 역량 -->
+            <div class="section">
+                <h2 class="section-title">핵심 역량</h2>
+                <div class="capabilities-grid">
+                    <div class="capability-card">
+                        <h4>법무 컨설팅</h4>
+                        <ul>
+                            <li>법학과 졸업 </li>
+                            <li>법무법인등 경력</li>                            
+                            <li>중견기업 법무팀장 경력</li>                            
+                            <li>채무관리 및 회생/파산 실무 전문</li>
+                            <li>채권회수 전략 수립 및 회수 경력</li>
+                            <li>병원 양수도 장례식장 인허가 운영경력 </li>
+                            <li>법률봉사활동 경력</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>재무 설계</h4>
+                        <ul>
+                            <li>AFPK（국가공인재무설계사） 자격 보유</li>
+                            <li>법인 재무 전략 컨설팅</li>
+                            <li>CEO 소득 설계</li>
+                            <li>가업 승계 및 상속 전략</li>
+                            <li>세무 최적화 솔루션</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>보험 컨설팅</h4>
+                        <ul>
+                            <li>생명보험/제3보험 설계사</li>
+                            <li>손해보험/제3보험 설계사</li>
+                            <li>변액보험 판매관리사</li>
+                            <li>퇴직연금제도 모집인</li>
+                            <li>법인 보험 활용 전략</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>개인연금 컨설팅</h4>
+                        <ul>
+                            <li>퇴직연금제도 모집인 자격 보유</li>
+                            <li><strong>DB(확정급여형)</strong> 연금 설계</li>
+                            <li><strong>DC(확정기여형)</strong> 연금 설계</li>
+                            <li><strong>IRP(개인형퇴직연금)</strong> 계좌 설계</li>
+                            <li>퇴직금 운용 전략 및 세제 혜택 활용</li>
+                            <li>법인 퇴직연금 제도 구축 컨설팅</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>펀드/신탁 투자 컨설팅</h4>
+                        <ul>
+                            <li>펀드/신탁/부동산 투자권유대행인 자격</li>
+                            <li><strong>ESG 투자</strong> 전략 수립 (최신 트렌드)</li>
+                            <li><strong>디지털 자산</strong> 포트폴리오 구성</li>
+                            <li>리스크 관리 기반 자산배분 전략</li>
+                            <li>세제 혜택 활용 투자 설계</li>
+                            <li>부동산 펀드(REITs) 투자 컨설팅</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>부동산 경매</h4>
+                        <ul>
+                            <li>부동산 경공매 권리분석사</li>
+                            <li>부동산 경공매 상담사</li>
+                            <li>경매 권리 분석 전문</li>
+                            <li>부동산 투자 컨설팅</li>
+                            <li>투자권유대행인 자격</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>데이터 분석 & AI</h4>
+                        <ul>
+                            <li>빅데이터 분석 전문가</li>
+                            <li>딥러닝/머신러닝 전문</li>
+                            <li>AI 부트캠프 수료</li>
+                            <li>데이터 시각화 전문</li>
+                            <li>AI 창업캠프 참가 중</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>개인정보보호</h4>
+                        <ul>
+                            <li>개인정보보호 일반교육 수료 (한국인터넷진흥원)</li>
+                            <li>개인정보보호 전문교육 수료 (한국인터넷진흥원)</li>
+                            <li>개인정보보호법 준수 컨설팅</li>
+                            <li>개인정보 처리방침 수립 지원</li>
+                            <li>개인정보 유출 대응 전략 수립</li>
+                            <li>법인 개인정보보호 관리체계 구축</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>경영 전략</h4>
+                        <ul>
+                            <li>경영전문가 MBA 과정</li>
+                            <li>전략전문가 MBA 과정</li>
+                            <li>기업 이슈 해결 솔루션</li>
+                            <li>법인 세무 컨설팅</li>
+                            <li>장애인 창업 특화 교육</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>의료기관 컨설팅</h4>
+                        <ul>
+                            <li>병원 M&A 컨설팅 경력</li>
+                            <li>병원 인수합병 전략 수립</li>
+                            <li>병원 가치평가 및 실사</li>
+                            <li>장례식장 인허가 취득 컨설팅</li>
+                            <li>장례식장 운영 컨설팅</li>
+                            <li>의료기관 경영 전략 수립</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card">
+                        <h4>건물 안전관리</h4>
+                        <ul>
+                            <li>소방설비기사 (전기분야) - <strong style="color: #3b82f6;">국가기술자격증</strong></li>
+                            <li>소방설비기사 (기계분야) - <strong style="color: #3b82f6;">국가기술자격증</strong></li>
+                            <li>소방기술자(중급)</li>
+                            <li>2급 방화관리자</li>
+                            <li>가스사용시설안전관리자</li>
+                            <li>승강기안전관리자</li>
+                            <li>의용소방대 활동 (~현재)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 자격 및 경력 -->
+            <div class="section">
+                <h2 class="section-title">주요 자격 및 경력</h2>
+                <div class="qualifications-grid">
+                    <div class="qualification-category">
+                        <h4>🎓 학력</h4>
+                        <div class="qualification-item">
+                            <strong>2000.8</strong> 인천대학교 법학과 졸업
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>⚖️ 법무</h4>
+                        <div class="qualification-item">
+                            <strong>1994.6</strong> 하계법률봉사활동 (법무부장관 위촉)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2003.8</strong> 법무법인 등 근무
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2007.3</strong> 회생/파산실무과정 수료
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🏢 부동산</h4>
+                        <div class="qualification-item">
+                            <strong>2007.7</strong> 부동산경공매권리분석사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2007.8</strong> 부동산 경공매상담사 (공로상)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.11</strong> 펀드/신탁/부동산 투자권유대행인
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>💰 재무 설계</h4>
+                        <div class="qualification-item">
+                            <strong>2025.4</strong> AFPK (Associate Financial Planner Korea)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.5</strong> 생명보험/제3보험설계사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.9</strong> 변액보험판매관리사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.10</strong> 손해보험/제3보험설계사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.12</strong> 퇴직연금제도모집인
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>📊 데이터 & AI</h4>
+                        <div class="qualification-item">
+                            <strong>2023.7</strong> 빅데이터 분석 및 시각화 전문가 (공로상)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2023.7</strong> 데이터 분석 기초 완주반
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2023.7</strong> 딥러닝 입문 (머신러닝~딥러닝)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2024.2</strong> 인공지능(AI) 부트캠프 (패스트캠퍼스)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2025.5</strong> 심층 데이터 분석 서비스 솔루션 개발자
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2025.11</strong> 인공지능(AI) 창업캠프 과정 참가 중
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🛒 전자상거래</h4>
+                        <div class="qualification-item">
+                            <strong>2024.2</strong> 온라인전문셀러(2급) - 지앤지커머스
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🎯 경영</h4>
+                        <div class="qualification-item">
+                            <strong>2014.1</strong> 전략전문가 MBA 과정
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2014.2</strong> 경영전문가 MBA 과정
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2023.11</strong> 장애인 창업특화교육
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🌱 문화 & 생활</h4>
+                        <div class="qualification-item">
+                            <strong>2011.9</strong> 개인정보보호 일반교육/전문교육 - 한국인터넷진흥원
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2019.9</strong> 귀촌(전원생활)교육 - 서울농업기술센터
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2019.11</strong> 시민도시아카데미 - 서울특별시
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2019.11</strong> 시민조경아카데미 - 서울특별시
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2020.2</strong> 한국사능력검정시험 3급 - 국사편찬위원회
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2020.7</strong> 귀농창업교육 - 서울농업기술센터
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2020.10</strong> 농업기계안전교육 - 서울농업기술센터
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🤝 사회 공헌</h4>
+                        <div class="qualification-item">
+                            <strong>2019.6</strong> 제100회 전국체전 자원봉사 - 한국중앙자원봉사센터
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2022.8</strong> 수해복구지원 - 소방청
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🏢 경력</h4>
+                        <div class="qualification-item">
+                            <strong>2001.7</strong> LG 유플러스
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2010.9</strong> 행텐코리아 입사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2018.4</strong> 행텐 퇴사 (브랜디드라이프스타일코리아)
+                        </div>
+                        <div class="qualification-item">
+                            <strong>병원 M&A</strong> 병원 인수합병 컨설팅 경력
+                        </div>
+                        <div class="qualification-item">
+                            <strong>장례식장 인허가 및 운영</strong> 장례식장 인허가 취득 및 운영 경력
+                        </div>
+                    </div>
+
+                    <div class="qualification-category">
+                        <h4>🔥 건물 안전관리 & 소방</h4>
+                        <div class="qualification-item">
+                            <strong>2018.8</strong> 소방설비기사 (전기분야) - <strong style="color: #3b82f6;">국가기술자격증</strong>
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2022.9</strong> 소방설비기사 (기계분야) - <strong style="color: #3b82f6;">국가기술자격증</strong>
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2022.10</strong> 소방기술자(중급) - 한국소방시설협회 경력수첩
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2009.6</strong> 2급 방화관리자 - 한국소방안전원
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2009.7</strong> 가스사용시설안전관리자 - 한국가스안전공사
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2010.1</strong> 승강기안전관리자 - 승강기관리원
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2009.7</strong> 인정검사대상기기조종자 - 한국에너지관리공단
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2019.3</strong> 의용소방대 입대 (~현재) - 구로소방서 위촉
+                        </div>
+                        <div class="qualification-item">
+                            <strong>2022.5</strong> 구로소방서장 표창
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 주요 경력 타임라인 -->
+            <div class="section">
+                <h2 class="section-title">주요 경력 타임라인</h2>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-year">1994 - 법률 분야 시작</div>
+                        <div class="timeline-content">
+                            하계법률봉사활동으로 법무 분야에 입문, 법무부장관 위촉
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2000 - 법학 전공 완료</div>
+                        <div class="timeline-content">
+                            인천대학교 법학과 졸업, 법학 기초 이론 완성
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2003-2007 - 법무 실무 전문가</div>
+                        <div class="timeline-content">
+                            법무법인 근무를 통해 실무 경험 축적, 회생/파산 실무과정 수료, 부동산 경매 전문가 자격 취득
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2010-2018 - 기업 경영 경험</div>
+                        <div class="timeline-content">
+                            행텐코리아 입사 및 근무, MBA 과정을 통한 경영 전략 역량 강화, 
+                            병원 M&A 컨설팅 및 장례식장 인허가·운영 경력 축적
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2018-2022 - 건물 안전관리 전문가</div>
+                        <div class="timeline-content">
+                            소방설비기사 (전기·기계) 국가기술자격증 취득, 소방기술자(중급) 자격 획득, 
+                            방화관리자·가스안전관리자·승강기안전관리자 등 건물 안전관리 자격 완비
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019-2020 - 문화적 소양과 삶의 질 향상</div>
+                        <div class="timeline-content">
+                            시민도시아카데미, 시민조경아카데미 수료, 귀촌/귀농 교육 참여, 한국사능력검정시험 3급 취득 등 
+                            문화적 소양과 삶의 질 향상을 위한 다양한 활동
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2019-현재 - 사회 공헌 및 전문성 강화</div>
+                        <div class="timeline-content">
+                            의용소방대 활동 (~현재), 제100회 전국체전 자원봉사, 수해복구지원, 구로소방서장 표창 수상, 
+                            건물 안전관리 실무 경험 축적
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2023-2024 - 디지털 전환</div>
+                        <div class="timeline-content">
+                            빅데이터 분석, AI 전문가 과정 수료, 데이터 기반 컨설팅 역량 확보
+                        </div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-year">2024-2025 - 재무 설계 전문가</div>
+                        <div class="timeline-content">
+                            AFPK 자격 취득, 보험 설계사 자격 다수 취득, 퇴직연금제도모집인, 
+                            펀드/신탁/부동산 투자권유대행인 자격 취득, 종합 재무 컨설팅 역량 완성
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 핵심 강점 - 왜 믿을 수 있는가 -->
+            <div class="section">
+                <h2 class="section-title">왜 믿고 맡길 수 있나요?</h2>
+                <div class="capabilities-grid">
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>다양한 전문 분야 통합</h4>
+                        <ul>
+                            <li>법무, 재무, 데이터 분석, 보험, 개인연금(DB/DC/IRP), 펀드/신탁, 부동산 경매, 건물 안전관리 등 다양한 전문 분야의 지식과 경험을 통합하여 제공</li>
+                            <li>단일 분야가 아닌 종합적인 관점에서 문제 해결</li>
+                            <li>복잡한 이슈도 한 번에 해결 가능</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>검증된 실무 경험</h4>
+                        <ul>
+                            <li>법무법인, 기업 근무 경험을 통한 실무 역량</li>
+                            <li>병원 M&A 컨설팅 및 장례식장 인허가·운영 경력</li>
+                            <li>이론과 실무의 균형잡힌 접근</li>
+                            <li>30년 이상의 다양한 분야 경험</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>데이터 기반 의사결정</h4>
+                        <ul>
+                            <li>빅데이터 분석 및 AI 전문가 과정을 통한 데이터 기반 컨설팅</li>
+                            <li>정성적 분석과 정량적 분석의 결합</li>
+                            <li>객관적이고 과학적인 접근</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>지속적인 전문성 강화</h4>
+                        <ul>
+                            <li>최신 트렌드에 맞춘 지속적인 교육 및 자격 취득</li>
+                            <li>AI 창업캠프 등 최신 기술 습득 중</li>
+                            <li>25개 이상의 전문 자격증 보유</li>
+                            <li>법무, 재무, 데이터 분석, 보험, 개인연금, 펀드/신탁 등 다양한 분야의 전문성 지속 확장</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>사회 공헌 및 문화적 소양</h4>
+                        <ul>
+                            <li>의용소방대 활동, 법률봉사활동 등 사회 공헌 경험</li>
+                            <li>제100회 전국체전 자원봉사, 수해복구지원 등 다양한 봉사 활동</li>
+                            <li>시민도시아카데미, 시민조경아카데미 수료로 문화적 소양 함양</li>
+                            <li>귀촌/귀농 교육을 통한 삶의 질 향상과 자연과의 조화</li>
+                            <li>한국사능력검정시험 3급 취득으로 역사적 소양 확보</li>
+                            <li>구로소방서장 표창 수상</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>맞춤형 컨설팅</h4>
+                        <ul>
+                            <li>고객의 상황과 필요에 맞는 맞춤형 컨설팅 제공</li>
+                            <li>법인, 개인, 병원 등 다양한 고객층 대응</li>
+                            <li>종합적이고 체계적인 접근</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>개인연금 전문성</h4>
+                        <ul>
+                            <li>퇴직연금제도 모집인 자격 보유로 DB/DC/IRP 전문 컨설팅</li>
+                            <li>법인 퇴직연금 제도 구축부터 개인 IRP 계좌 설계까지 종합 지원</li>
+                            <li>퇴직금 운용 전략 및 세제 혜택 최적화</li>
+                            <li>확정급여형(DB)과 확정기여형(DC) 연금의 특성 이해 및 설계</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>펀드/신탁 투자 전문성</h4>
+                        <ul>
+                            <li>투자권유대행인 자격으로 펀드/신탁/부동산 투자 전문 컨설팅</li>
+                            <li>ESG 투자, 디지털 자산 등 최신 투자 트렌드 반영</li>
+                            <li>리스크 관리 기반의 체계적인 자산배분 전략 수립</li>
+                            <li>세제 혜택을 활용한 효율적인 투자 포트폴리오 구성</li>
+                        </ul>
+                    </div>
+
+                    <div class="capability-card" style="border-left: 5px solid #10b981;">
+                        <h4>건물 안전 리스크 관리</h4>
+                        <ul>
+                            <li>소방설비기사 국가기술자격 기반 안전 점검</li>
+                            <li>중대재해처벌법 대응 전략 수립</li>
+                            <li>법인 부동산 안전관리 체계 구축</li>
+                            <li>안전 관련 법규 준수 컨설팅</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 제공 가능한 서비스 -->
+            <div class="section">
+                <h2 class="section-title">제공 가능한 서비스</h2>
+                <div class="highlight-box">
+                    <h4>🎯 제공 서비스</h4>
+                    <ul>
+                        <li><strong>법인 재무 전략 컨설팅</strong> - 법인의 이해, CEO 소득 설계, 기업 이슈 해결, 가업 승계, 법인 보험 활용</li>
+                        <li><strong>개인연금 컨설팅</strong> - DB(확정급여형), DC(확정기여형), IRP(개인형퇴직연금) 설계 및 운용 전략</li>
+                        <li><strong>펀드/신탁 투자 컨설팅</strong> - ESG 투자, 디지털 자산, REITs 등 최신 트렌드 반영 투자 포트폴리오 구성</li>
+                        <li><strong>보험 설계 및 컨설팅</strong> - 생명보험, 손해보험, 변액보험, 퇴직연금 설계</li>
+                        <li><strong>채권 회수 전략 수립</strong> - 형사고소 및 민사소송 병행 전략, 제3채무자 압류, 재산 압류 및 강제집행</li>
+                        <li><strong>부동산 경매 컨설팅</strong> - 권리 분석, 투자 전략, 경매 상담</li>
+                        <li><strong>데이터 분석 기반 의사결정 지원</strong> - 빅데이터 분석, AI 활용, 데이터 시각화</li>
+                        <li><strong>개인정보보호 컨설팅</strong> - 개인정보보호법 준수, 처리방침 수립, 유출 대응 전략, 관리체계 구축</li>
+                        <li><strong>장애인 기업 지원 컨설팅</strong> - 장애인 창업 특화 교육 경험 기반 컨설팅</li>
+                        <li><strong>법인 세무 최적화</strong> - 가지급금, 명의신탁주식, 자기주식취득, 미처분이익잉여금 등 이슈 해결</li>
+                        <li><strong>병원 M&A 컨설팅</strong> - 병원 인수합병 전략 수립, 가치평가, 실사, 인수합병 프로세스 관리</li>
+                        <li><strong>병원 경영 컨설팅</strong> - 병원 원장님을 위한 재무 전략, 공단청구점검, 병원 가치평가, 경영 전략 수립</li>
+                        <li><strong>장례식장 인허가 및 운영 컨설팅</strong> - 장례식장 인허가 취득 지원, 운영 전략 수립, 경영 컨설팅</li>
+                        <li><strong>건물 안전관리 컨설팅</strong> - 소방설비기사(전기·기계) 국가기술자격 기반 안전 점검, 법인 부동산 안전 리스크 관리, 중대재해처벌법 대응</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            <p><strong>신대식 · 종합 컨설팅 전문가</strong></p>
+            <p>법무 · 재무 · 데이터 분석 · 보험 · 개인연금(DB/DC/IRP) · 펀드/신탁 · 부동산 경매 · 건물 안전관리</p>
+            <div class="contact-info">
+                <div style="display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; margin: 2rem 0;">
+                    <a href="tel:010-2088-5383" class="contact-item" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.15); border-radius: 12px; transition: all 0.3s ease;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                            <path d="M6.62 10.79c1.44 2.83 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" fill="currentColor"/>
+                        </svg>
+                        <span style="font-size: 1.1em; font-weight: 600;">010-2088-5383</span>
+                    </a>
+                    <a href="mailto:profinitart@gmail.com" class="contact-item" style="text-decoration: none; display: flex; align-items: center; gap: 0.75rem; padding: 1rem 1.5rem; background: rgba(255,255,255,0.15); border-radius: 12px; transition: all 0.3s ease;">
+                        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="flex-shrink: 0;">
+                            <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" fill="currentColor"/>
+                        </svg>
+                        <span style="font-size: 1.1em; font-weight: 600;">profinitart@gmail.com</span>
+                    </a>
+                </div>
+                <p style="font-size: 0.9em; opacity: 0.8; margin-top: 1rem;">
+                    다양한 전문 분야의 지식과 경험을 통합하여<br>
+                    고객의 복잡한 문제를 해결하는 종합 컨설팅을 제공합니다.
+                </p>
+            </div>
+        </div>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">📄 인쇄하기</button>
+
+    <script>
+        // 페이지 로드 시 애니메이션
+        window.addEventListener('load', function() {
+            const cards = document.querySelectorAll('.capability-card, .qualification-category, .stat-card');
+            cards.forEach((card, index) => {
+                card.style.opacity = '0';
+                card.style.transform = 'translateY(20px)';
+                setTimeout(() => {
+                    card.style.transition = 'all 0.5s ease';
+                    card.style.opacity = '1';
+                    card.style.transform = 'translateY(0)';
+                }, 100 * index);
+            });
+        });
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,303 @@
+/* Strategy Page Styles - Corporate Strategy Style */
+
+.strategy-page {
+    background: #f5f5f5;
+    min-height: 100vh;
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+}
+
+.strategy-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 3rem 0;
+    text-align: center;
+}
+
+.strategy-header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+}
+
+.strategy-header h1 a {
+    color: white;
+    text-decoration: none;
+}
+
+.strategy-header .subtitle {
+    font-size: 1.2rem;
+    opacity: 0.9;
+}
+
+.strategy-main {
+    padding: 4rem 0;
+}
+
+.strategy-intro {
+    max-width: 900px;
+    margin: 0 auto 4rem;
+    padding: 2rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+}
+
+.intro-text {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #333;
+}
+
+.intro-text strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.intro-text em {
+    font-style: italic;
+    color: #764ba2;
+}
+
+.strategy-part {
+    max-width: 1000px;
+    margin: 0 auto 4rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    overflow: hidden;
+}
+
+.part-header {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    padding: 2rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 1rem;
+}
+
+.part-header h2 {
+    font-size: 1.8rem;
+    font-weight: 600;
+    margin: 0;
+}
+
+.part-link {
+    color: white;
+    text-decoration: none;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;
+    font-weight: 500;
+}
+
+.part-link:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.part-content {
+    padding: 3rem;
+}
+
+.pain-points,
+.solution {
+    margin-bottom: 2.5rem;
+}
+
+.pain-points h3,
+.solution h3 {
+    font-size: 1.5rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+    font-weight: 600;
+}
+
+.pain-points ul,
+.solution ul {
+    list-style: none;
+    padding: 0;
+}
+
+.pain-points ul li,
+.solution ul li {
+    padding: 1rem 0;
+    padding-left: 2rem;
+    position: relative;
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    border-bottom: 1px solid #eee;
+}
+
+.pain-points ul li:last-child,
+.solution ul li:last-child {
+    border-bottom: none;
+}
+
+.pain-points ul li:before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    color: #ff6b6b;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.solution ul li:before {
+    content: "→";
+    position: absolute;
+    left: 0;
+    color: #667eea;
+    font-weight: bold;
+    font-size: 1.2rem;
+}
+
+.solution ul li strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.key-point {
+    background: linear-gradient(135deg, #f093fb 0%, #4facfe 100%);
+    color: white;
+    padding: 2rem;
+    border-radius: 10px;
+    margin-top: 2rem;
+}
+
+.key-point h4 {
+    font-size: 1.3rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.key-point p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.key-point strong {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0 0.3rem;
+    border-radius: 3px;
+}
+
+.key-point em {
+    font-style: italic;
+    opacity: 0.9;
+}
+
+.consultation-cta {
+    max-width: 900px;
+    margin: 4rem auto;
+    padding: 3rem;
+    background: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+    text-align: center;
+}
+
+.consultation-cta h2 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 2rem;
+    font-weight: 600;
+}
+
+.consultation-cta p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    color: #555;
+    margin-bottom: 1.5rem;
+}
+
+.consultation-cta strong {
+    color: #667eea;
+    font-weight: 600;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 2rem;
+}
+
+.btn-cta {
+    display: inline-block;
+    padding: 1rem 2rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-weight: 500;
+    transition: all 0.3s;
+    border: 2px solid #667eea;
+    color: #667eea;
+    background: white;
+}
+
+.btn-cta.btn-primary {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+    border: none;
+}
+
+.btn-cta:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.strategy-footer {
+    background: #333;
+    color: white;
+    padding: 2rem 0;
+    text-align: center;
+}
+
+.strategy-footer p {
+    margin: 0.5rem 0;
+    opacity: 0.8;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .strategy-header h1 {
+        font-size: 2rem;
+    }
+
+    .part-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .part-header h2 {
+        font-size: 1.5rem;
+    }
+
+    .part-content {
+        padding: 2rem;
+    }
+
+    .pain-points ul li,
+    .solution ul li {
+        font-size: 1rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-cta {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+

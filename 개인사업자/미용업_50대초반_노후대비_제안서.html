@@ -1,0 +1,1053 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>미용업 개인사업자 노후 대비 종합 제안서</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --danger: #ef4444;
+            --info: #3b82f6;
+            --dark: #1e293b;
+            --light: #f8fafc;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: #1e293b;
+            line-height: 1.7;
+            padding: 2rem 0;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+        
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+            font-weight: 800;
+        }
+        
+        .header .subtitle {
+            font-size: 1.2rem;
+            color: #64748b;
+            margin-bottom: 1.5rem;
+        }
+        
+        .key-message {
+            background: linear-gradient(135deg, #f093fb 0%, #4facfe 100%);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            font-size: 1.3rem;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .section {
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            padding: 3rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.2);
+        }
+        
+        .section-title {
+            font-size: 2rem;
+            color: #667eea;
+            margin-bottom: 2rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        
+        .section-title::before {
+            content: '';
+            width: 5px;
+            height: 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+        
+        .card {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1));
+            border: 2px solid rgba(102, 126, 234, 0.2);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-bottom: 1.5rem;
+            transition: all 0.3s ease;
+        }
+        
+        .card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 40px rgba(102, 126, 234, 0.3);
+            border-color: #667eea;
+        }
+        
+        .card h3 {
+            color: #667eea;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .pension-calculator {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 20px;
+            padding: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .calculator-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        
+        .form-group input,
+        .form-group select {
+            padding: 0.75rem;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            backdrop-filter: blur(10px);
+        }
+        
+        .form-group input::placeholder {
+            color: rgba(255, 255, 255, 0.7);
+        }
+        
+        .btn-calculate {
+            background: white;
+            color: #667eea;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        
+        .btn-calculate:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+        }
+        
+        .result-box {
+            background: rgba(255, 255, 255, 0.2);
+            backdrop-filter: blur(10px);
+            border-radius: 15px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .result-box.show {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .result-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 1rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .result-item:last-child {
+            border-bottom: none;
+        }
+        
+        .result-label {
+            font-weight: 600;
+        }
+        
+        .result-value {
+            font-size: 1.3rem;
+            font-weight: 700;
+        }
+        
+        .pension-detail {
+            background: linear-gradient(135deg, rgba(74, 222, 128, 0.1), rgba(59, 130, 246, 0.1));
+            border-left: 5px solid #4ade80;
+            border-radius: 10px;
+            padding: 2rem;
+            margin: 2rem 0;
+        }
+        
+        .pension-detail h4 {
+            color: #059669;
+            font-size: 1.3rem;
+            margin-bottom: 1rem;
+            font-weight: 700;
+        }
+        
+        .pension-tabs {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+        
+        .pension-tab {
+            padding: 0.75rem 1.5rem;
+            background: rgba(102, 126, 234, 0.1);
+            border: 2px solid rgba(102, 126, 234, 0.3);
+            border-radius: 50px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-weight: 600;
+            color: #667eea;
+        }
+        
+        .pension-tab.active {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .pension-content {
+            display: none;
+        }
+        
+        .pension-content.active {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: white;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 700;
+        }
+        
+        .comparison-table td {
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+        }
+        
+        .comparison-table tr:last-child td {
+            border-bottom: none;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fafc;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, #fbbf24, #f59e0b);
+            color: white;
+            padding: 1.5rem;
+            border-radius: 15px;
+            margin: 1.5rem 0;
+            font-weight: 600;
+            box-shadow: 0 10px 30px rgba(251, 191, 36, 0.3);
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 3rem;
+            margin: 2rem 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(180deg, #667eea, #764ba2);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 2rem;
+            padding-left: 2rem;
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -2.5rem;
+            top: 0.5rem;
+            width: 1rem;
+            height: 1rem;
+            background: #667eea;
+            border-radius: 50%;
+            border: 3px solid white;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+        
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .checklist li {
+            padding: 1rem;
+            margin-bottom: 0.5rem;
+            background: #f8fafc;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .checklist li:hover {
+            background: #e2e8f0;
+            transform: translateX(5px);
+        }
+        
+        .checklist input[type="checkbox"] {
+            width: 1.5rem;
+            height: 1.5rem;
+            cursor: pointer;
+        }
+        
+        .chart-container {
+            background: white;
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+        }
+        
+        a[href^="tel:"] {
+            transition: all 0.3s ease;
+        }
+        
+        a[href^="tel:"]:hover {
+            transform: scale(1.05);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.4);
+        }
+        
+        @media (max-width: 768px) {
+            .header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .section {
+                padding: 2rem 1.5rem;
+            }
+            
+            .calculator-form {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Header -->
+        <div class="header">
+            <h1>미용업 개인사업자 노후 대비 종합 제안서</h1>
+            <div class="subtitle">
+                <strong>대상 고객:</strong> 미용업 개인사업자 · 50대 초반<br>
+                <strong>주요 관심사:</strong> 노후 불안 해소
+            </div>
+            <div class="key-message">
+                "지금 시작하면 10년 후 안정적인 노후를 보장할 수 있습니다."
+            </div>
+        </div>
+
+        <!-- Pension Calculator Section -->
+        <div class="section">
+            <h2 class="section-title">💰 세제적격연금 상세 분석</h2>
+            
+            <div class="pension-calculator">
+                <h3 style="color: white; margin-bottom: 2rem; font-size: 1.8rem;">연금 수익 계산기</h3>
+                <div class="calculator-form">
+                    <div class="form-group">
+                        <label>연 불입액 (만원)</label>
+                        <input type="number" id="annualPayment" value="600" min="0" max="600" step="10">
+                    </div>
+                    <div class="form-group">
+                        <label>불입 기간 (년)</label>
+                        <input type="number" id="paymentPeriod" value="10" min="1" max="30" step="1">
+                    </div>
+                    <div class="form-group">
+                        <label>예상 수익률 (%)</label>
+                        <input type="number" id="interestRate" value="3" min="0" max="10" step="0.1">
+                    </div>
+                    <div class="form-group">
+                        <label>세액공제율 (%)</label>
+                        <select id="taxDeductionRate">
+                            <option value="12">12% (일반)</option>
+                            <option value="15">15% (소득 4,500만원 이하)</option>
+                        </select>
+                    </div>
+                </div>
+                <button class="btn-calculate" onclick="calculatePension()">계산하기</button>
+                
+                <div class="result-box" id="resultBox">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.5rem;">계산 결과</h4>
+                    <div class="result-item">
+                        <span class="result-label">총 불입액</span>
+                        <span class="result-value" id="totalPayment">0원</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">총 세액공제 혜택</span>
+                        <span class="result-value" id="totalTaxDeduction">0원</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">예상 적립액 (이자 포함)</span>
+                        <span class="result-value" id="totalAccumulated">0원</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">실질 부담액</span>
+                        <span class="result-value" id="netPayment">0원</span>
+                    </div>
+                    <div class="result-item">
+                        <span class="result-label">55세 이후 월 연금액 (20년 수령 가정)</span>
+                        <span class="result-value" id="monthlyPension">0원</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pension Tabs -->
+            <div class="pension-tabs">
+                <div class="pension-tab active" onclick="showPensionTab('overview')">개요</div>
+                <div class="pension-tab" onclick="showPensionTab('benefits')">세무 혜택</div>
+                <div class="pension-tab" onclick="showPensionTab('withdrawal')">수령 방법</div>
+                <div class="pension-tab" onclick="showPensionTab('comparison')">비교 분석</div>
+            </div>
+
+            <!-- Pension Overview -->
+            <div class="pension-content active" id="pension-overview">
+                <div class="pension-detail">
+                    <h4>📌 세제적격연금이란?</h4>
+                    <p>세제적격연금(연금저축계좌)은 연 600만 원 한도 내에서 불입한 금액에 대해 12~15% 세액공제를 받고, 55세 이후 연금으로 수령할 때 연금소득세가 과세되는 상품입니다.</p>
+                </div>
+
+                <div class="card">
+                    <h3>✅ 주요 특징</h3>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.5rem 0;">✓ <strong>불입 한도:</strong> 연 600만 원 (퇴직연금과 합산 시 900만 원)</li>
+                        <li style="padding: 0.5rem 0;">✓ <strong>세액공제:</strong> 12% 또는 15% (소득 수준에 따라)</li>
+                        <li style="padding: 0.5rem 0;">✓ <strong>연금 수령:</strong> 55세 이후 연금 형태로 수령</li>
+                        <li style="padding: 0.5rem 0;">✓ <strong>세율:</strong> 연 1,500만 원 이하 시 5.5% 분리과세</li>
+                        <li style="padding: 0.5rem 0;">✓ <strong>적용 대상:</strong> 모든 소득자 (근로소득자, 사업소득자 모두 가능)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    💡 <strong>50대 초반 개인사업자에게 최적화된 상품</strong><br>
+                    연 600만 원 불입 시 연 72만 원 세액공제로 실질 부담은 528만 원입니다. 10년간 불입하면 총 720만 원의 세액공제 혜택을 받을 수 있습니다.
+                </div>
+            </div>
+
+            <!-- Pension Benefits -->
+            <div class="pension-content" id="pension-benefits">
+                <div class="card">
+                    <h3>💰 세액공제 상세</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>12% 세액공제</th>
+                                <th>15% 세액공제</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>적용 대상</strong></td>
+                                <td>일반 소득자</td>
+                                <td>종합소득금액 4,500만 원 이하<br>또는 총급여 5,500만 원 이하</td>
+                            </tr>
+                            <tr>
+                                <td><strong>연 600만 원 불입 시</strong></td>
+                                <td>72만 원 세액공제</td>
+                                <td>90만 원 세액공제</td>
+                            </tr>
+                            <tr>
+                                <td><strong>10년간 총 혜택</strong></td>
+                                <td>720만 원</td>
+                                <td>900만 원</td>
+                            </tr>
+                            <tr>
+                                <td><strong>실질 부담액 (10년)</strong></td>
+                                <td>5,280만 원</td>
+                                <td>5,100만 원</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h3>📊 단계별 세금 흐름</h3>
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4 style="color: #667eea; margin-bottom: 0.5rem;">1단계: 불입 단계</h4>
+                            <p><strong>세액공제:</strong> 연 600만 원 한도 내에서 12~15% 세액공제</p>
+                            <p><strong>시기:</strong> 연말정산 또는 종합소득세 신고 시</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #667eea; margin-bottom: 0.5rem;">2단계: 중도해지 시</h4>
+                            <p><strong>세율:</strong> 기타소득 16.5% 원천징수 (지방소득세 포함)</p>
+                            <p><strong>주의:</strong> 자의적 해지 시 공제받은 원금+이자 모두 과세</p>
+                        </div>
+                        <div class="timeline-item">
+                            <h4 style="color: #667eea; margin-bottom: 0.5rem;">3단계: 연금 수령 시</h4>
+                            <p><strong>연 1,500만 원 이하:</strong> 연금소득 5.5% 분리과세</p>
+                            <p><strong>연 1,500만 원 초과:</strong> 종합과세 또는 16.5% 분리과세 선택</p>
+                            <p><strong>70세 이상:</strong> 4.4%, <strong>80세 이상:</strong> 3.3%</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Pension Withdrawal -->
+            <div class="pension-content" id="pension-withdrawal">
+                <div class="card">
+                    <h3>💳 연금 수령 방법</h3>
+                    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem; margin-top: 1.5rem;">
+                        <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); padding: 1.5rem; border-radius: 10px;">
+                            <h4 style="color: #667eea; margin-bottom: 1rem;">확정기간형</h4>
+                            <p><strong>특징:</strong> 일정 기간 동안 고정된 금액 수령</p>
+                            <p><strong>세율:</strong> 연 1,500만 원 이하 시 5.5%</p>
+                            <p><strong>장점:</strong> 안정적인 수입 예측 가능</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); padding: 1.5rem; border-radius: 10px;">
+                            <h4 style="color: #667eea; margin-bottom: 1rem;">종신형</h4>
+                            <p><strong>특징:</strong> 사망 시까지 연금 수령</p>
+                            <p><strong>세율:</strong> 4.4% (70세 이상 시)</p>
+                            <p><strong>장점:</strong> 장수 시 유리, 장기 수령 가능</p>
+                        </div>
+                        <div style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.1), rgba(118, 75, 162, 0.1)); padding: 1.5rem; border-radius: 10px;">
+                            <h4 style="color: #667eea; margin-bottom: 1rem;">일시금</h4>
+                            <p><strong>특징:</strong> 일시에 전액 수령</p>
+                            <p><strong>세율:</strong> 기타소득 16.5%</p>
+                            <p><strong>주의:</strong> 세부담이 가장 큼</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="highlight-box">
+                    ⚠️ <strong>중요:</strong> 연 1,500만 원 이하로 수령하면 5.5%의 낮은 세율이 적용되므로, 수령 기간을 조절하여 연 1,500만 원 이하로 유지하는 것이 유리합니다.
+                </div>
+            </div>
+
+            <!-- Pension Comparison -->
+            <div class="pension-content" id="pension-comparison">
+                <div class="card">
+                    <h3>📊 세제적격연금 vs 세제비적격연금</h3>
+                    <table class="comparison-table">
+                        <thead>
+                            <tr>
+                                <th>구분</th>
+                                <th>세제적격연금</th>
+                                <th>세제비적격연금</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td><strong>불입 시</strong></td>
+                                <td>12~15% 세액공제</td>
+                                <td>세액공제 없음</td>
+                            </tr>
+                            <tr>
+                                <td><strong>중도해지 시</strong></td>
+                                <td>기타소득 16.5% 과세</td>
+                                <td>10년 이상 유지 시 비과세</td>
+                            </tr>
+                            <tr>
+                                <td><strong>수령 시</strong></td>
+                                <td>연금소득 5.5% (1,500만원 이하)</td>
+                                <td>이자소득 비과세 (요건 충족 시)</td>
+                            </tr>
+                            <tr>
+                                <td><strong>적용 대상</strong></td>
+                                <td>모든 소득자</td>
+                                <td>모든 소득자</td>
+                            </tr>
+                            <tr>
+                                <td><strong>장점</strong></td>
+                                <td>불입 시 세액공제 혜택</td>
+                                <td>수령 시 비과세 가능</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </div>
+
+                <div class="chart-container">
+                    <canvas id="pensionChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <!-- Other Sections -->
+        <div class="section">
+            <h2 class="section-title">🔍 현황 분석</h2>
+            <div class="card">
+                <h3>미용업 개인사업자의 특성</h3>
+                <ul style="list-style: none; padding: 0;">
+                    <li style="padding: 0.5rem 0;">• <strong>신체적 노동:</strong> 장시간 서서 일하는 업무 특성</li>
+                    <li style="padding: 0.5rem 0;">• <strong>퇴직금 제도 없음:</strong> 법인과 달리 별도의 퇴직금 적립 없음</li>
+                    <li style="padding: 0.5rem 0;">• <strong>소득 변동성:</strong> 계절성, 경기 변동에 따른 매출 변동</li>
+                    <li style="padding: 0.5rem 0;">• <strong>노후 대비 부족:</strong> 현재 소득에 의존, 노후 자금 마련 미흡</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">💡 종합 솔루션</h2>
+            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1.5rem;">
+                <div class="card">
+                    <h3>1. 세제적격연금</h3>
+                    <p><strong>목적:</strong> 노후 자금 마련</p>
+                    <p><strong>금액:</strong> 연 600만 원</p>
+                    <p><strong>효과:</strong> 연 72만 원 세액공제</p>
+                </div>
+                <div class="card">
+                    <h3>2. 종신보험</h3>
+                    <p><strong>목적:</strong> 퇴직금 재원 + 사망 리스크</p>
+                    <p><strong>금액:</strong> 월 생활비 × 120개월</p>
+                    <p><strong>효과:</strong> 노후 생활비 확보</p>
+                </div>
+                <div class="card">
+                    <h3>3. 통합보험</h3>
+                    <p><strong>목적:</strong> 건강 리스크 대응</p>
+                    <p><strong>보장:</strong> 입원, 수술, 통원 치료</p>
+                    <p><strong>효과:</strong> 소득 손실 보장</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h2 class="section-title">📋 실행 체크리스트</h2>
+            
+            <div style="display: flex; gap: 1rem; margin-bottom: 1.5rem; flex-wrap: wrap;">
+                <button onclick="sendSMS()" 
+                        style="background: linear-gradient(135deg, #4ade80, #22c55e); 
+                               color: white; 
+                               border: none; 
+                               padding: 0.75rem 1.5rem; 
+                               border-radius: 50px; 
+                               font-weight: 600; 
+                               cursor: pointer; 
+                               transition: all 0.3s ease;
+                               box-shadow: 0 5px 15px rgba(74, 222, 128, 0.3);">
+                    📱 문자로 보내기
+                </button>
+                <button onclick="copyChecklist()" 
+                        style="background: linear-gradient(135deg, #3b82f6, #2563eb); 
+                               color: white; 
+                               border: none; 
+                               padding: 0.75rem 1.5rem; 
+                               border-radius: 50px; 
+                               font-weight: 600; 
+                               cursor: pointer; 
+                               transition: all 0.3s ease;
+                               box-shadow: 0 5px 15px rgba(59, 130, 246, 0.3);">
+                    📋 내용 복사하기
+                </button>
+            </div>
+            
+            <ul class="checklist">
+                <li>
+                    <input type="checkbox" id="check1">
+                    <label for="check1">세제적격연금 가입 (연 600만 원)</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="check2">
+                    <label for="check2">종신보험 가입 (퇴직금 재원)</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="check3">
+                    <label for="check3">통합보험(상해보험) 가입</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="check4">
+                    <label for="check4">종업원 복리후생 (연 70만 원 이내)</label>
+                </li>
+                <li>
+                    <input type="checkbox" id="check5">
+                    <label for="check5">화재보험 경비처리</label>
+                </li>
+            </ul>
+            
+            <div id="copyNotification" style="display: none; 
+                                             background: #4ade80; 
+                                             color: white; 
+                                             padding: 1rem; 
+                                             border-radius: 10px; 
+                                             margin-top: 1rem; 
+                                             text-align: center; 
+                                             font-weight: 600;">
+                ✅ 클립보드에 복사되었습니다!
+            </div>
+        </div>
+
+        <!-- 상담 신청 섹션 -->
+        <div class="section" style="background: linear-gradient(135deg, rgba(102, 126, 234, 0.95), rgba(118, 75, 162, 0.95)); color: white;">
+            <h2 class="section-title" style="color: white;">📞 세부 상담 신청</h2>
+            
+            <div class="card" style="background: rgba(255, 255, 255, 0.15); border: 2px solid rgba(255, 255, 255, 0.3); color: white;">
+                <h3 style="color: white; font-size: 1.8rem; margin-bottom: 1.5rem; text-align: center;">
+                    맞춤형 상담으로 더 나은 노후를 설계하세요
+                </h3>
+                
+                <div style="text-align: center; margin: 2rem 0;">
+                    <a href="tel:01020885383" 
+                       style="display: inline-block; 
+                              background: white; 
+                              color: #667eea; 
+                              padding: 1.5rem 3rem; 
+                              border-radius: 50px; 
+                              font-size: 1.5rem; 
+                              font-weight: 700; 
+                              text-decoration: none; 
+                              box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+                              transition: all 0.3s ease;">
+                        📞 010-2088-5383
+                    </a>
+                </div>
+                
+                <div style="background: rgba(255, 255, 255, 0.1); padding: 2rem; border-radius: 15px; margin-top: 2rem;">
+                    <h4 style="margin-bottom: 1.5rem; font-size: 1.3rem;">상담 안내</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <strong>상담 시간:</strong> 평일 09:00 ~ 18:00 (사전 예약 가능)
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <strong>상담 내용:</strong> 현재 재무 상황 분석, 맞춤형 노후 대비 전략 수립
+                        </li>
+                        <li style="padding: 0.75rem 0; border-bottom: 1px solid rgba(255,255,255,0.2);">
+                            <strong>제공 서비스:</strong> 세제적격연금 및 보험 상품 상세 안내, 세무 최적화 방안 제안
+                        </li>
+                        <li style="padding: 0.75rem 0;">
+                            <strong>준비 자료:</strong> 사업자등록증, 최근 3년간 종합소득세 신고서 (선택사항)
+                        </li>
+                    </ul>
+                </div>
+
+                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(255, 255, 255, 0.1); border-radius: 10px; text-align: center;">
+                    <p style="margin: 0; opacity: 0.9;">
+                        본 제안서를 검토하시고 추가 질문이나 맞춤형 상담이 필요하시다면<br>
+                        언제든지 연락 주시기 바랍니다.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div class="section" style="text-align: center; padding: 2rem;">
+            <p style="color: rgba(255, 255, 255, 0.9); margin: 0.5rem 0;">
+                <strong>작성일:</strong> 2025년 12월 5일
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.9); margin: 0.5rem 0;">
+                <strong>작성자:</strong> 신대식
+            </p>
+            <p style="color: rgba(255, 255, 255, 0.9); margin: 0.5rem 0;">
+                <strong>연락처:</strong> <a href="tel:01020885383" style="color: white; text-decoration: underline;">010-2088-5383</a>
+            </p>
+        </div>
+    </div>
+
+    <script>
+        function calculatePension() {
+            const annualPayment = parseFloat(document.getElementById('annualPayment').value) * 10000;
+            const paymentPeriod = parseInt(document.getElementById('paymentPeriod').value);
+            const interestRate = parseFloat(document.getElementById('interestRate').value) / 100;
+            const taxDeductionRate = parseFloat(document.getElementById('taxDeductionRate').value) / 100;
+            
+            // 총 불입액
+            const totalPayment = annualPayment * paymentPeriod;
+            
+            // 총 세액공제
+            const annualTaxDeduction = annualPayment * taxDeductionRate;
+            const totalTaxDeduction = annualTaxDeduction * paymentPeriod;
+            
+            // 복리 계산 (매년 말 불입 가정)
+            let totalAccumulated = 0;
+            for (let i = 0; i < paymentPeriod; i++) {
+                totalAccumulated = (totalAccumulated + annualPayment) * (1 + interestRate);
+            }
+            
+            // 실질 부담액
+            const netPayment = totalPayment - totalTaxDeduction;
+            
+            // 월 연금액 (20년 수령 가정, 단순 계산)
+            const monthlyPension = totalAccumulated / (20 * 12);
+            
+            // 결과 표시
+            document.getElementById('totalPayment').textContent = formatCurrency(totalPayment);
+            document.getElementById('totalTaxDeduction').textContent = formatCurrency(totalTaxDeduction);
+            document.getElementById('totalAccumulated').textContent = formatCurrency(Math.round(totalAccumulated));
+            document.getElementById('netPayment').textContent = formatCurrency(Math.round(netPayment));
+            document.getElementById('monthlyPension').textContent = formatCurrency(Math.round(monthlyPension));
+            
+            document.getElementById('resultBox').classList.add('show');
+            
+            // 차트 업데이트
+            updateChart(annualPayment, paymentPeriod, totalAccumulated, totalTaxDeduction);
+        }
+        
+        function formatCurrency(amount) {
+            return new Intl.NumberFormat('ko-KR', {
+                style: 'currency',
+                currency: 'KRW',
+                maximumFractionDigits: 0
+            }).format(amount);
+        }
+        
+        function showPensionTab(tabName) {
+            // 모든 탭 비활성화
+            document.querySelectorAll('.pension-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.pension-content').forEach(content => {
+                content.classList.remove('active');
+            });
+            
+            // 선택된 탭 활성화
+            event.target.classList.add('active');
+            document.getElementById('pension-' + tabName).classList.add('active');
+        }
+        
+        let pensionChart = null;
+        
+        function updateChart(annualPayment, period, accumulated, taxDeduction) {
+            const ctx = document.getElementById('pensionChart');
+            if (pensionChart) {
+                pensionChart.destroy();
+            }
+            
+            pensionChart = new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: ['총 불입액', '세액공제 혜택', '예상 적립액'],
+                    datasets: [{
+                        label: '금액 (원)',
+                        data: [
+                            annualPayment * period,
+                            taxDeduction,
+                            Math.round(accumulated)
+                        ],
+                        backgroundColor: [
+                            'rgba(102, 126, 234, 0.8)',
+                            'rgba(74, 222, 128, 0.8)',
+                            'rgba(118, 75, 162, 0.8)'
+                        ],
+                        borderColor: [
+                            'rgba(102, 126, 234, 1)',
+                            'rgba(74, 222, 128, 1)',
+                            'rgba(118, 75, 162, 1)'
+                        ],
+                        borderWidth: 2
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            callbacks: {
+                                label: function(context) {
+                                    return formatCurrency(context.parsed.y);
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            ticks: {
+                                callback: function(value) {
+                                    return (value / 10000000).toFixed(1) + '천만원';
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+        
+        // 초기 차트 생성
+        window.addEventListener('load', function() {
+            calculatePension();
+        });
+        
+        // 체크리스트 문자 메시지 전송
+        function sendSMS() {
+            const checklistText = getChecklistText();
+            const phoneNumber = '01020885383';
+            const message = encodeURIComponent(checklistText);
+            
+            // SMS 링크 생성 (안드로이드/iOS 모두 지원)
+            const smsLink = `sms:${phoneNumber}?body=${message}`;
+            
+            // 링크 열기
+            window.location.href = smsLink;
+        }
+        
+        // 체크리스트 내용 복사
+        function copyChecklist() {
+            const checklistText = getChecklistText();
+            
+            // 클립보드에 복사
+            navigator.clipboard.writeText(checklistText).then(function() {
+                // 복사 성공 알림
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                setTimeout(function() {
+                    notification.style.display = 'none';
+                }, 3000);
+            }).catch(function(err) {
+                // 복사 실패 시 대체 방법
+                const textArea = document.createElement('textarea');
+                textArea.value = checklistText;
+                textArea.style.position = 'fixed';
+                textArea.style.opacity = '0';
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                
+                const notification = document.getElementById('copyNotification');
+                notification.style.display = 'block';
+                setTimeout(function() {
+                    notification.style.display = 'none';
+                }, 3000);
+            });
+        }
+        
+        // 체크리스트 텍스트 생성
+        function getChecklistText() {
+            const checkedItems = [];
+            const allItems = [];
+            
+            // 즉시 실행 항목
+            const immediateItems = [
+                '세제적격연금 가입 (연 600만 원)',
+                '종신보험 가입 (퇴직금 재원)',
+                '통합보험(상해보험) 가입'
+            ];
+            
+            // 단기 실행 항목
+            const shortTermItems = [
+                '종업원 복리후생 (연 70만 원 이내 단체보험)',
+                '화재보험 경비처리 (1년 소멸성)',
+                '보험 가입 현황 정리'
+            ];
+            
+            // 중장기 실행 항목
+            const longTermItems = [
+                '분기별 보험 가입 현황 점검',
+                '연말 세무 신고 전 사전 점검',
+                '세법 개정 사항 반영'
+            ];
+            
+            // 체크된 항목 확인
+            for (let i = 1; i <= 5; i++) {
+                const checkbox = document.getElementById('check' + i);
+                if (checkbox && checkbox.checked) {
+                    const label = document.querySelector(`label[for="check${i}"]`);
+                    if (label) {
+                        checkedItems.push(label.textContent.trim());
+                    }
+                }
+            }
+            
+            // 전체 텍스트 구성
+            let text = '📋 미용업 개인사업자 노후 대비 실행 체크리스트\n\n';
+            text += '【즉시 실행 항목】\n';
+            immediateItems.forEach((item, index) => {
+                const isChecked = checkedItems.some(checked => checked.includes(item.split('(')[0].trim()));
+                text += `${index + 1}. ${isChecked ? '✅' : '☐'} ${item}\n`;
+            });
+            
+            text += '\n【단기 실행 항목 (3개월 내)】\n';
+            shortTermItems.forEach((item, index) => {
+                const isChecked = checkedItems.some(checked => checked.includes(item.split('(')[0].trim()));
+                text += `${index + 1}. ${isChecked ? '✅' : '☐'} ${item}\n`;
+            });
+            
+            text += '\n【중장기 실행 항목 (6개월~1년 내)】\n';
+            longTermItems.forEach((item, index) => {
+                const isChecked = checkedItems.some(checked => checked.includes(item.split('(')[0].trim()));
+                text += `${index + 1}. ${isChecked ? '✅' : '☐'} ${item}\n`;
+            });
+            
+            text += '\n────────────────\n';
+            text += '📞 상담 문의: 010-2088-5383\n';
+            text += '신대식 | 개인사업자 재무전략 컨설턴트\n';
+            text += '────────────────\n';
+            text += '본 체크리스트는 미용업 개인사업자 노후 대비 제안서의 실행 항목입니다.';
+            
+            return text;
+        }
+    </script>
+</body>
+</html>
+

@@ -1,0 +1,323 @@
+/* Presentation Slide Styles */
+
+.presentation-page {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #000;
+}
+
+.presentation-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.presentation-slide {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding: 4rem;
+    box-sizing: border-box;
+}
+
+.presentation-slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 10;
+}
+
+.presentation-slide.prev {
+    transform: translateX(-100%);
+    z-index: 5;
+}
+
+/* Slide backgrounds */
+.presentation-slide:nth-child(1) {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    color: white;
+}
+
+.presentation-slide:nth-child(2) {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa040 100%);
+    color: white;
+}
+
+.presentation-slide:nth-child(3) {
+    background: linear-gradient(135deg, #4ecdc4 0%, #64b5f6 100%);
+    color: white;
+}
+
+.presentation-slide:nth-child(4) {
+    background: linear-gradient(135deg, #ffa040 0%, #ff6b6b 100%);
+    color: white;
+}
+
+.presentation-slide:nth-child(5) {
+    background: linear-gradient(135deg, #f093fb 0%, #4facfe 100%);
+    color: white;
+}
+
+.slide-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    position: relative;
+    z-index: 1;
+}
+
+.slide-content h1 {
+    font-size: 4rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.slide-content h2 {
+    font-size: 3rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    font-weight: 300;
+    margin-bottom: 3rem;
+}
+
+.content-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    margin: 2rem 0;
+    text-align: left;
+}
+
+.pain-list {
+    list-style: none;
+    padding: 0;
+}
+
+.pain-list li {
+    padding: 1.5rem 0;
+    padding-left: 3rem;
+    position: relative;
+    font-size: 1.5rem;
+    line-height: 1.8;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.pain-list li:last-child {
+    border-bottom: none;
+}
+
+.pain-list li:before {
+    content: "·";
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    font-size: 2rem;
+    color: rgba(255, 255, 255, 0.8);
+}
+
+.step-description {
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-weight: 500;
+}
+
+.step-items {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 2rem;
+    margin-top: 2rem;
+}
+
+.step-item {
+    background: rgba(255, 255, 255, 0.2);
+    padding: 2rem;
+    border-radius: 15px;
+    text-align: center;
+}
+
+.step-item h3 {
+    font-size: 1.8rem;
+    margin-bottom: 0.5rem;
+    font-weight: 600;
+}
+
+.step-item p {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    margin: 0;
+}
+
+.step-section {
+    margin-bottom: 2rem;
+    padding: 2rem;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 15px;
+}
+
+.step-section h3 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: rgba(255, 255, 255, 0.95);
+}
+
+.step-section p {
+    font-size: 1.3rem;
+    line-height: 1.8;
+    margin-bottom: 0.5rem;
+}
+
+.step-section .note {
+    font-size: 1.1rem;
+    opacity: 0.8;
+    font-style: italic;
+}
+
+.key-point-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 4rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.key-point-box p {
+    font-size: 2rem;
+    line-height: 1.8;
+    margin: 0;
+}
+
+.key-point-box strong {
+    background: rgba(255, 255, 255, 0.3);
+    padding: 0 0.5rem;
+    border-radius: 5px;
+    font-weight: 600;
+}
+
+.slide-image-placeholder {
+    width: 300px;
+    height: 300px;
+    margin: 2rem auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.image-icon {
+    font-size: 8rem;
+}
+
+/* Navigation */
+.slide-nav {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 20;
+}
+
+.btn-prev,
+.btn-next,
+.btn-home {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-prev:hover,
+.btn-next:hover,
+.btn-home:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.slide-indicator {
+    color: white;
+    font-size: 1rem;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+.presentation-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 15;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .presentation-slide {
+        padding: 2rem;
+    }
+
+    .slide-content h1 {
+        font-size: 2.5rem;
+    }
+
+    .slide-content h2 {
+        font-size: 2rem;
+    }
+
+    .pain-list li {
+        font-size: 1.2rem;
+        padding-left: 2rem;
+    }
+
+    .step-items {
+        grid-template-columns: 1fr;
+    }
+
+    .key-point-box p {
+        font-size: 1.5rem;
+    }
+
+    .slide-nav {
+        padding: 0 2rem;
+        bottom: 2rem;
+    }
+}
+
+

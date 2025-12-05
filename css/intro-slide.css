@@ -1,0 +1,415 @@
+/* Intro Slide Styles - Full Screen Presentation */
+
+.intro-slide-page {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    font-family: 'Malgun Gothic', '맑은 고딕', -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    background: #000;
+}
+
+.slide-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+    overflow: hidden;
+}
+
+.slide {
+    width: 100%;
+    height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: absolute;
+    top: 0;
+    left: 0;
+    opacity: 0;
+    transform: translateX(100%);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+    padding: 4rem;
+    box-sizing: border-box;
+}
+
+.slide.active {
+    opacity: 1;
+    transform: translateX(0);
+    z-index: 10;
+}
+
+.slide.prev {
+    transform: translateX(-100%);
+    z-index: 5;
+}
+
+.slide-content {
+    max-width: 1200px;
+    width: 100%;
+    text-align: center;
+    color: white;
+    position: relative;
+    z-index: 1;
+}
+
+/* Hero Slide */
+.slide-hero {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+}
+
+.main-title {
+    font-size: 5rem;
+    font-weight: 700;
+    margin-bottom: 1rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+    letter-spacing: -2px;
+}
+
+.tagline {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+.message-title {
+    font-size: 3.5rem;
+    font-weight: 600;
+    line-height: 1.3;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.message-subtitle {
+    font-size: 1.5rem;
+    line-height: 1.8;
+    opacity: 0.95;
+    font-weight: 300;
+}
+
+.hero-visual {
+    margin-bottom: 3rem;
+}
+
+.hero-image-placeholder,
+.profile-image-placeholder {
+    width: 200px;
+    height: 200px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.image-icon {
+    font-size: 5rem;
+}
+
+/* Pain Point Slides */
+.slide-pain {
+    background: linear-gradient(135deg, #ff6b6b 0%, #ffa040 100%);
+}
+
+.slide-pain:nth-child(3) {
+    background: linear-gradient(135deg, #4ecdc4 0%, #64b5f6 100%);
+}
+
+.slide-pain:nth-child(4) {
+    background: linear-gradient(135deg, #ffa040 0%, #ff6b6b 100%);
+}
+
+.slide-image {
+    margin-bottom: 3rem;
+}
+
+.image-placeholder {
+    width: 300px;
+    height: 300px;
+    margin: 0 auto;
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border: 3px solid rgba(255, 255, 255, 0.3);
+}
+
+.image-placeholder .image-icon {
+    font-size: 8rem;
+}
+
+.slide-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    margin-bottom: 2rem;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.quote-text {
+    font-size: 2.5rem;
+    line-height: 1.8;
+    font-weight: 500;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+}
+
+.pain-message {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 3rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+/* Approach Slide */
+.slide-approach {
+    background: linear-gradient(135deg, #f093fb 0%, #4facfe 100%);
+}
+
+.approach-box {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 4rem;
+    border-radius: 20px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    max-width: 900px;
+    margin: 0 auto;
+}
+
+.approach-text {
+    font-size: 2.2rem;
+    line-height: 1.8;
+    font-weight: 500;
+}
+
+.approach-text strong {
+    background: linear-gradient(120deg, #ffd700 0%, #ffed4e 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    font-weight: 700;
+}
+
+/* Profile Slide */
+.slide-profile {
+    background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+}
+
+.profile-visual {
+    margin-bottom: 2rem;
+}
+
+.profile-subtitle {
+    font-size: 1.5rem;
+    opacity: 0.9;
+    margin-bottom: 3rem;
+    font-weight: 300;
+}
+
+.profile-info {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+    text-align: left;
+}
+
+.info-item {
+    background: rgba(255, 255, 255, 0.15);
+    backdrop-filter: blur(10px);
+    padding: 2rem;
+    border-radius: 15px;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+}
+
+.info-item h3 {
+    font-size: 1.5rem;
+    margin-bottom: 1rem;
+    font-weight: 600;
+}
+
+.info-item p {
+    font-size: 1.1rem;
+    line-height: 1.8;
+    opacity: 0.95;
+}
+
+/* CTA Slide */
+.slide-cta {
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+}
+
+.cta-subtitle {
+    font-size: 1.5rem;
+    margin-bottom: 3rem;
+    opacity: 0.95;
+}
+
+.cta-buttons {
+    display: flex;
+    gap: 1.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 3rem;
+}
+
+.btn-primary-large,
+.btn-secondary-large {
+    display: inline-block;
+    padding: 1.2rem 3rem;
+    border-radius: 50px;
+    text-decoration: none;
+    font-size: 1.2rem;
+    font-weight: 600;
+    transition: all 0.3s;
+}
+
+.btn-primary-large {
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    border: 2px solid rgba(255, 255, 255, 0.5);
+}
+
+.btn-primary-large:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: scale(1.05);
+}
+
+.btn-secondary-large {
+    background: white;
+    color: #667eea;
+    border: 2px solid white;
+}
+
+.btn-secondary-large:hover {
+    background: rgba(255, 255, 255, 0.95);
+    transform: scale(1.05);
+}
+
+.cta-note {
+    font-size: 1.1rem;
+    opacity: 0.9;
+    line-height: 1.8;
+    margin-top: 2rem;
+}
+
+/* Navigation */
+.slide-nav {
+    position: absolute;
+    bottom: 3rem;
+    left: 0;
+    right: 0;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 4rem;
+    z-index: 20;
+}
+
+.btn-prev,
+.btn-next,
+.btn-home {
+    display: inline-block;
+    padding: 0.75rem 1.5rem;
+    background: rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    color: white;
+    text-decoration: none;
+    border-radius: 50px;
+    font-weight: 500;
+    border: 2px solid rgba(255, 255, 255, 0.3);
+    transition: all 0.3s;
+}
+
+.btn-prev:hover,
+.btn-next:hover,
+.btn-home:hover {
+    background: rgba(255, 255, 255, 0.3);
+    transform: translateY(-2px);
+}
+
+.slide-indicator {
+    color: white;
+    font-size: 1rem;
+    opacity: 0.8;
+    font-weight: 500;
+}
+
+/* Footer */
+.intro-footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 1rem;
+    text-align: center;
+    font-size: 0.9rem;
+    z-index: 15;
+}
+
+/* Keyboard Navigation Hint */
+.keyboard-hint {
+    position: fixed;
+    top: 2rem;
+    right: 2rem;
+    background: rgba(0, 0, 0, 0.5);
+    color: white;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    font-size: 0.9rem;
+    z-index: 20;
+    opacity: 0.7;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .slide {
+        padding: 2rem;
+    }
+
+    .main-title {
+        font-size: 3rem;
+    }
+
+    .message-title {
+        font-size: 2rem;
+    }
+
+    .quote-text {
+        font-size: 1.5rem;
+    }
+
+    .approach-text {
+        font-size: 1.5rem;
+    }
+
+    .profile-info {
+        grid-template-columns: 1fr;
+    }
+
+    .slide-nav {
+        padding: 0 2rem;
+        bottom: 2rem;
+    }
+
+    .cta-buttons {
+        flex-direction: column;
+        align-items: center;
+    }
+
+    .btn-primary-large,
+    .btn-secondary-large {
+        width: 100%;
+        max-width: 300px;
+    }
+}
+
+
