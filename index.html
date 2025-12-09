@@ -812,9 +812,9 @@
             dot.addEventListener('click', () => {
                 if (sections[index]) {
                     isScrolling = true;
-                    // 맞춤형 제안서 섹션으로 이동할 때는 적절히 느리게
+                    // 맞춤형 제안서 섹션으로 이동할 때는 약간 느리게
                     const isProposalSection = index === 0;
-                    const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
+                    const scrollDelay = isProposalSection ? 1800 : 1500; // 제안서 섹션은 1.8초 대기
                     sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
@@ -849,7 +849,7 @@
                     sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 2000);
+                    }, 1500);
                 }
             } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 e.preventDefault();
@@ -858,7 +858,7 @@
                     sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 2000);
+                    }, 1500);
                 }
             }
         });
@@ -868,11 +868,11 @@
         window.addEventListener('wheel', (e) => {
             if (isScrolling) return;
             
-            // 맞춤형 제안서 섹션(section-0)에서는 적절히 느리게 (버튼 클릭 가능하도록)
+            // 맞춤형 제안서 섹션(section-0)에서는 약간 느리게 (버튼 클릭 가능하도록)
             const isProposalSection = currentSection === 0;
-            const debounceTime = isProposalSection ? 200 : 50; // 제안서 섹션은 200ms 대기
-            const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
-            const wheelThreshold = isProposalSection ? 80 : 50; // 제안서 섹션은 약간 높은 임계값
+            const debounceTime = isProposalSection ? 150 : 50; // 제안서 섹션은 150ms 대기
+            const scrollDelay = isProposalSection ? 1800 : 1500; // 제안서 섹션은 1.8초 대기
+            const wheelThreshold = isProposalSection ? 70 : 50; // 제안서 섹션은 약간 높은 임계값
             
             clearTimeout(wheelTimeout);
             wheelTimeout = setTimeout(() => {
@@ -909,10 +909,10 @@
         }, { passive: true });
 
         function handleSwipe() {
-            // 맞춤형 제안서 섹션에서는 스와이프를 적절히 느리게
+            // 맞춤형 제안서 섹션에서는 스와이프를 약간 느리게
             const isProposalSection = currentSection === 0;
-            const swipeThreshold = isProposalSection ? 80 : 50; // 제안서 섹션은 약간 높은 임계값
-            const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
+            const swipeThreshold = isProposalSection ? 70 : 50; // 제안서 섹션은 약간 높은 임계값
+            const scrollDelay = isProposalSection ? 1800 : 1500; // 제안서 섹션은 1.8초 대기
             const diff = touchStartY - touchEndY;
             
             if (Math.abs(diff) > swipeThreshold) {
