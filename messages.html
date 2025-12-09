@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담 신청 메시지 확인 | 신대식 컨설팅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+            padding: 2rem 1rem;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .header {
+            background: #1a202c;
+            color: white;
+            padding: 2rem;
+            border-radius: 20px;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .header h1 {
+            font-size: 2rem;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .header .subtitle {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .info-box h3 {
+            color: #667eea;
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .info-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .info-box li {
+            padding: 0.5rem 0;
+            color: #cbd5e1;
+        }
+
+        .info-box li::before {
+            content: "✓ ";
+            color: #667eea;
+            font-weight: bold;
+            margin-right: 0.5rem;
+        }
+
+        .message-list {
+            display: grid;
+            gap: 1.5rem;
+        }
+
+        .message-card {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .message-card:hover {
+            border-color: #667eea;
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+
+        .message-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1.5rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .message-info {
+            flex: 1;
+        }
+
+        .message-name {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e2e8f0;
+            margin-bottom: 0.5rem;
+        }
+
+        .message-meta {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 1rem;
+            font-size: 0.9rem;
+            color: #94a3b8;
+        }
+
+        .message-date {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .message-content {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            font-family: 'Courier New', monospace;
+            font-size: 0.9rem;
+            line-height: 1.8;
+            color: #cbd5e1;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .message-actions {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1rem;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border-radius: 8px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 4rem 2rem;
+            color: #94a3b8;
+        }
+
+        .empty-state .icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .message-header {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .message-meta {
+                flex-direction: column;
+                gap: 0.5rem;
+            }
+
+            .message-actions {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+                text-align: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>📨 상담 신청 메시지 확인</h1>
+            <p class="subtitle">고객님들의 상담 신청 메시지를 확인하실 수 있습니다</p>
+        </div>
+
+        <div class="info-box">
+            <h3>📋 메시지 확인 방법</h3>
+            <ul>
+                <li><strong>Google Sheets:</strong> 체크리스트와 상담 예약 데이터가 자동으로 저장됩니다</li>
+                <li><strong>SMS/카카오톡:</strong> 고객이 직접 010-2088-5383으로 전송한 메시지</li>
+                <li><strong>API 서버:</strong> 로컬 파일로 저장된 데이터 확인</li>
+            </ul>
+        </div>
+
+        <div id="messageList" class="message-list">
+            <div class="loading">메시지를 불러오는 중...</div>
+        </div>
+    </div>
+
+    <script>
+        // 메시지 데이터 로드
+        async function loadMessages() {
+            const messageList = document.getElementById('messageList');
+            
+            try {
+                // API 서버에서 메시지 가져오기
+                const response = await fetch('/api/messages');
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    displayMessages(data.messages || []);
+                } else {
+                    // API가 없으면 로컬 데이터 표시
+                    displayLocalMessages();
+                }
+            } catch (error) {
+                console.log('API 호출 실패, 로컬 데이터 표시:', error);
+                displayLocalMessages();
+            }
+        }
+
+        // 로컬 데이터 표시
+        function displayLocalMessages() {
+            const messageList = document.getElementById('messageList');
+            
+            // Google Sheets 링크 제공
+            messageList.innerHTML = `
+                <div class="info-box">
+                    <h3>📊 Google Sheets에서 확인</h3>
+                    <p style="margin-bottom: 1rem; color: #cbd5e1;">
+                        상담 신청 메시지는 Google Sheets에 자동으로 저장됩니다.
+                    </p>
+                    <a href="https://docs.google.com/spreadsheets/d/YOUR_SPREADSHEET_ID" 
+                       target="_blank" 
+                       class="btn btn-primary">
+                        📊 Google Sheets 열기
+                    </a>
+                </div>
+                
+                <div class="info-box">
+                    <h3>📱 SMS/카카오톡 확인</h3>
+                    <p style="margin-bottom: 1rem; color: #cbd5e1;">
+                        고객이 직접 전송한 메시지는 휴대폰에서 확인하실 수 있습니다.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">
+                        전화번호: <a href="tel:010-2088-5383" style="color: #667eea;">010-2088-5383</a>
+                    </p>
+                </div>
+                
+                <div class="info-box">
+                    <h3>💾 로컬 파일 확인</h3>
+                    <p style="margin-bottom: 1rem; color: #cbd5e1;">
+                        체크리스트 데이터는 로컬 파일로도 저장됩니다.
+                    </p>
+                    <p style="color: #94a3b8; font-size: 0.9rem;">
+                        경로: <code style="background: #0f172a; padding: 0.25rem 0.5rem; border-radius: 4px;">checklist_data/</code>
+                    </p>
+                </div>
+            `;
+        }
+
+        // 메시지 표시
+        function displayMessages(messages) {
+            const messageList = document.getElementById('messageList');
+            
+            if (messages.length === 0) {
+                messageList.innerHTML = `
+                    <div class="empty-state">
+                        <div class="icon">📭</div>
+                        <h3>아직 메시지가 없습니다</h3>
+                        <p>상담 신청이 들어오면 여기에 표시됩니다.</p>
+                    </div>
+                `;
+                return;
+            }
+
+            messageList.innerHTML = messages.map(msg => `
+                <div class="message-card">
+                    <div class="message-header">
+                        <div class="message-info">
+                            <div class="message-name">${msg.name || '이름 없음'}</div>
+                            <div class="message-meta">
+                                <span>📞 ${msg.phone || '연락처 없음'}</span>
+                                ${msg.email ? `<span>📧 ${msg.email}</span>` : ''}
+                                ${msg.business ? `<span>🏢 ${msg.business}</span>` : ''}
+                            </div>
+                        </div>
+                        <div class="message-date">${formatDate(msg.created_at)}</div>
+                    </div>
+                    <div class="message-content">${msg.message || '메시지 없음'}</div>
+                    <div class="message-actions">
+                        <a href="tel:${msg.phone?.replace(/-/g, '')}" class="btn btn-primary">📞 전화하기</a>
+                        <a href="sms:${msg.phone?.replace(/-/g, '')}" class="btn btn-secondary">💬 문자 보내기</a>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        // 날짜 포맷팅
+        function formatDate(dateString) {
+            if (!dateString) return '날짜 없음';
+            
+            // 연월일시분초 형식 (YYYYMMDDHHMMSS) 파싱
+            if (dateString.length === 14) {
+                const year = dateString.substring(0, 4);
+                const month = dateString.substring(4, 6);
+                const day = dateString.substring(6, 8);
+                const hour = dateString.substring(8, 10);
+                const minute = dateString.substring(10, 12);
+                return `${year}-${month}-${day} ${hour}:${minute}`;
+            }
+            
+            // ISO 형식 파싱
+            const date = new Date(dateString);
+            return date.toLocaleString('ko-KR', {
+                year: 'numeric',
+                month: '2-digit',
+                day: '2-digit',
+                hour: '2-digit',
+                minute: '2-digit'
+            });
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', loadMessages);
+    </script>
+</body>
+</html>
+
