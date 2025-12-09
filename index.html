@@ -617,15 +617,15 @@
 
     <!-- Navigation Dots -->
     <div class="nav-dots">
-        <div class="nav-dot active" data-section="0" title="소개"></div>
-        <div class="nav-dot" data-section="1" title="제안서 사례"></div>
-        <div class="nav-dot" data-section="2" title="서비스"></div>
-        <div class="nav-dot" data-section="3" title="체크리스트"></div>
-        <div class="nav-dot" data-section="4" title="법인 전략"></div>
+        <div class="nav-dot active" data-section="0" title="맞춤형 제안서"></div>
+        <div class="nav-dot" data-section="1" title="소개"></div>
+        <div class="nav-dot" data-section="2" title="체크리스트"></div>
+        <div class="nav-dot" data-section="3" title="법인 전략"></div>
+        <div class="nav-dot" data-section="4" title="안내사항"></div>
     </div>
 
-    <!-- Hero Section - 내 소개 -->
-    <section class="hero-intro" id="section-0">
+    <!-- Custom Proposal Section - 맞춤형 제안서 (맨 앞으로 이동) -->
+    <section class="case-study-section" id="section-0">
         <div class="container">
             <h2>개인사업자님의 하루가<br>조금 덜 무거워지도록</h2>
             <p class="intro-text">
@@ -663,8 +663,6 @@
         <div class="scroll-indicator">스크롤하여 더 보기</div>
     </section>
 
-    <!-- Custom Proposal Section - 체크리스트 분석 폼 -->
-    <section class="case-study-section" id="section-1">
         <div class="container">
             <div class="section-header">
                 <h2>맞춤형 제안서</h2>
@@ -705,6 +703,9 @@
         </div>
     </section>
 
+    <!-- Hero Section - 내 소개 -->
+    <section class="hero-intro" id="section-1">
+
     <!-- Profile Link Section -->
     <section class="transition-section" id="section-profile">
         <div class="container">
@@ -720,7 +721,7 @@
     </section>
 
     <!-- Consultation Checklist Section -->
-    <section class="checklist-section" id="section-3">
+    <section class="checklist-section" id="section-2">
         <div class="container">
             <div class="section-header">
                 <h2>📋 상담 준비사항 체크리스트</h2>
@@ -743,7 +744,7 @@
     </section>
 
     <!-- Transition Section -->
-    <section class="transition-section" id="section-4">
+    <section class="transition-section" id="section-3">
         <div class="container">
             <h2>법인기업 대표자님도 함께 합니다</h2>
             <p>
@@ -757,7 +758,7 @@
     </section>
 
     <!-- Disclaimer Section -->
-    <section class="disclaimer-section" id="section-5">
+    <section class="disclaimer-section" id="section-4">
         <div class="container">
             <div style="max-width: 900px; margin: 0 auto; padding: clamp(1.5rem, 4vw, 2rem); background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.2);">
                 <h4 style="color: #fbbf24; font-size: clamp(1rem, 2.5vw, 1.1rem); margin-bottom: 1rem; font-weight: 700;">⚠️ 중요 안내사항</h4>
@@ -812,8 +813,8 @@
                 if (sections[index]) {
                     isScrolling = true;
                     // 맞춤형 제안서 섹션으로 이동할 때는 더 느리게
-                    const isProposalSection = index === 1;
-                    const scrollDelay = isProposalSection ? 3000 : 2000;
+                    const isProposalSection = index === 0;
+                    const scrollDelay = isProposalSection ? 5000 : 2000; // 제안서 섹션은 5초 대기
                     sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
@@ -835,7 +836,7 @@
         let keyScrollTimeout;
         window.addEventListener('keydown', (e) => {
             // 맞춤형 제안서 섹션에서는 키보드 네비게이션 비활성화 (클릭 가능하도록)
-            const isProposalSection = currentSection === 1;
+            const isProposalSection = currentSection === 0;
             if (isProposalSection && (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowUp' || e.key === 'PageUp')) {
                 // 제안서 섹션에서는 키보드 스크롤 비활성화
                 return;
@@ -867,30 +868,60 @@
         window.addEventListener('wheel', (e) => {
             if (isScrolling) return;
             
-            // 맞춤형 제안서 섹션(section-1)에서는 더 느리게
-            const isProposalSection = currentSection === 1;
-            const debounceTime = isProposalSection ? 300 : 50; // 제안서 섹션은 300ms 대기
-            const scrollDelay = isProposalSection ? 3000 : 2000; // 제안서 섹션은 3초 대기
+            // 맞춤형 제안서 섹션(section-0)에서는 훨씬 더 느리게
+            const isProposalSection = currentSection === 0;
             
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                const delta = e.deltaY;
-                if (Math.abs(delta) > 50) {
-                    if (delta > 0 && currentSection < sections.length - 1) {
-                        isScrolling = true;
-                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, scrollDelay);
-                    } else if (delta < 0 && currentSection > 0) {
-                        isScrolling = true;
-                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, scrollDelay);
+            // 제안서 섹션에서는 마우스 휠 스크롤을 거의 비활성화 (버튼 클릭 가능하도록)
+            if (isProposalSection) {
+                // 제안서 섹션에서는 휠 스크롤을 매우 느리게 (1초 이상 대기)
+                const debounceTime = 1000; // 1초 대기
+                const scrollDelay = 5000; // 5초 대기
+                const wheelThreshold = 150; // 휠 감지 임계값 높임 (더 많이 스크롤해야 이동)
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(() => {
+                    const delta = e.deltaY;
+                    if (Math.abs(delta) > wheelThreshold) { // 임계값 높임
+                        if (delta > 0 && currentSection < sections.length - 1) {
+                            isScrolling = true;
+                            sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, scrollDelay);
+                        } else if (delta < 0 && currentSection > 0) {
+                            isScrolling = true;
+                            sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, scrollDelay);
+                        }
                     }
-                }
-            }, debounceTime);
+                }, debounceTime);
+            } else {
+                // 다른 섹션은 기존대로
+                const debounceTime = 50;
+                const scrollDelay = 2000;
+                
+                clearTimeout(wheelTimeout);
+                wheelTimeout = setTimeout(() => {
+                    const delta = e.deltaY;
+                    if (Math.abs(delta) > 50) {
+                        if (delta > 0 && currentSection < sections.length - 1) {
+                            isScrolling = true;
+                            sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, scrollDelay);
+                        } else if (delta < 0 && currentSection > 0) {
+                            isScrolling = true;
+                            sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                            setTimeout(() => {
+                                isScrolling = false;
+                            }, scrollDelay);
+                        }
+                    }
+                }, debounceTime);
+            }
         }, { passive: true });
 
         // Touch swipe support (모바일)
@@ -907,12 +938,11 @@
         }, { passive: true });
 
         function handleSwipe() {
-            const swipeThreshold = 50;
+            // 맞춤형 제안서 섹션에서는 스와이프를 훨씬 더 느리게
+            const isProposalSection = currentSection === 0;
+            const swipeThreshold = isProposalSection ? 150 : 50; // 제안서 섹션은 임계값 높임
+            const scrollDelay = isProposalSection ? 5000 : 2000; // 제안서 섹션은 5초 대기
             const diff = touchStartY - touchEndY;
-            
-            // 맞춤형 제안서 섹션에서는 스와이프를 더 느리게
-            const isProposalSection = currentSection === 1;
-            const scrollDelay = isProposalSection ? 3000 : 2000;
             
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0 && currentSection < sections.length - 1) {
