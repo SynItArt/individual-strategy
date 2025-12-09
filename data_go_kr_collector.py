@@ -11,6 +11,20 @@ from datetime import datetime
 from pathlib import Path
 import time
 
+# .env 파일에서 API 키 로드 시도
+def load_env_file():
+    """.env 파일에서 환경변수 로드"""
+    env_file = Path(__file__).parent / ".env"
+    if env_file.exists():
+        with open(env_file, 'r', encoding='utf-8') as f:
+            for line in f:
+                line = line.strip()
+                if line and not line.startswith('#') and '=' in line:
+                    key, value = line.split('=', 1)
+                    os.environ[key.strip()] = value.strip()
+
+load_env_file()
+
 # data.go.kr API 키 (환경변수 또는 설정 파일에서 가져오기)
 API_KEY = os.getenv('DATA_GO_KR_API_KEY', 'YOUR_API_KEY_HERE')
 
@@ -100,23 +114,71 @@ class DataGoKrCollector:
         # 실제 API 호출 (API 키가 있을 때)
         if self.api_key and self.api_key != 'YOUR_API_KEY_HERE':
             # 실제 API 호출 코드 (API 키 발급 후 활성화)
-            # url = f"{self.base_url}/1160100/service/GetSmpcSttusService/getSmpcSttus"
-            # params = {
-            #     'serviceKey': self.api_key,
-            #     'pageNo': 1,
-            #     'numOfRows': 100,
-            #     'resultType': 'json',
-            #     'indutyCd': industry_code,
-            #     'year': year
-            # }
-            # try:
-            #     response = requests.get(url, params=params, timeout=10)
-            #     response.raise_for_status()
-            #     return response.json()
-            # except Exception as e:
-            #     print(f"❌ API 호출 실패: {e}")
-            #     return None
-            pass
+            # 주의: 실제 API 엔드포인트는 data.go.kr에서 제공하는 정확한 URL로 변경 필요
+            try:
+                # 예시: 소상공인 경영현황 통계 API
+                # 실제 API URL은 data.go.kr에서 확인 필요
+                url = f"{self.base_url}/1160100/service/GetSmpcSttusService/getSmpcSttus"
+                
+                params = {
+                    'serviceKey': self.api_key,
+                    'pageNo': 1,
+                    'numOfRows': 100,
+                    'resultType': 'json',
+                    'year': year
+                }
+                
+                # 업종 코드 매핑 (실제 API에 맞게 수정 필요)
+                industry_code_map = {
+                    '미용업': 'IND001',
+                    '요식업': 'IND002',
+                    '소매업': 'IND003',
+                    '서비스업': 'IND004',
+                    '제조업': 'IND005',
+                    '건설업': 'IND006',
+                    '운수업': 'IND007'
+                }
+                
+                if industry_name in industry_code_map:
+                    params['indutyCd'] = industry_code_map[industry_name]
+                
+                print(f"   🔗 API 호출 시도: {industry_name}")
+                response = requests.get(url, params=params, timeout=10)
+                response.raise_for_status()
+                
+                result = response.json()
+                print(f"   ✅ API 호출 성공: {industry_name}")
+                return result
+                
+            except requests.exceptions.RequestException as e:
+                print(f"   ⚠️  API 호출 실패: {e}")
+                print(f"   📊 기본 데이터 사용: {industry_name}")
+                # API 실패 시 기본 데이터 반환
+                if industry_name in industry_defaults:
+                    return {
+                        'result': {
+                            'items': [{
+                                'industry': industry_name,
+                                'year': year,
+                                **industry_defaults[industry_name],
+                                'source': 'default_data'
+                            }]
+                        }
+                    }
+            except Exception as e:
+                print(f"   ❌ 오류 발생: {e}")
+                print(f"   📊 기본 데이터 사용: {industry_name}")
+                if industry_name in industry_defaults:
+                    return {
+                        'result': {
+                            'items': [{
+                                'industry': industry_name,
+                                'year': year,
+                                **industry_defaults[industry_name],
+                                'source': 'default_data'
+                            }]
+                        }
+                    }
         
         return None
     
