@@ -1,0 +1,924 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>개인사업자 상담 준비사항 체크리스트 | 신대식 컨설팅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .main-header {
+            background: #1a202c;
+            color: white;
+            padding: 2rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+        }
+        
+        .main-header h1 {
+            font-size: 1.8rem;
+            font-weight: 800;
+        }
+        
+        .main-header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+        
+        .main-header .subtitle {
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .page-header {
+            background: linear-gradient(180deg, #0f172a 0%, #1a202c 100%);
+            color: white;
+            padding: 4rem 0;
+            text-align: center;
+        }
+
+        .page-header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 1rem;
+            color: #e2e8f0;
+        }
+
+        .page-header .subtitle {
+            font-size: 1.2rem;
+            opacity: 0.9;
+            color: #cbd5e1;
+        }
+
+        .notice-box {
+            background: rgba(251, 191, 36, 0.1);
+            border-left: 4px solid #fbbf24;
+            border: 1px solid rgba(251, 191, 36, 0.2);
+            padding: 20px;
+            margin: 30px 0;
+            border-radius: 10px;
+        }
+
+        .notice-box strong {
+            color: #fbbf24;
+            display: block;
+            margin-bottom: 10px;
+            font-size: 1.1em;
+        }
+
+        .notice-box p {
+            color: #cbd5e1;
+        }
+
+        .content {
+            padding: 30px 0;
+        }
+
+        .progress-bar {
+            position: sticky;
+            top: 0;
+            background: #1a202c;
+            padding: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
+            z-index: 100;
+            margin-bottom: 30px;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 10px;
+        }
+
+        .progress-text {
+            font-weight: bold;
+            color: #e2e8f0;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 25px;
+            background: #0f172a;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+            transition: width 0.3s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 0.85em;
+            font-weight: bold;
+        }
+
+        .section {
+            margin-bottom: 40px;
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2.5rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 1.8em;
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #667eea;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 700;
+        }
+
+        .subsection {
+            margin-bottom: 25px;
+            background: #0f172a;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid rgba(255, 255, 255, 0.05);
+        }
+
+        .subsection-title {
+            font-size: 1.3em;
+            color: #cbd5e1;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .checkbox-item {
+            display: flex;
+            align-items: flex-start;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            cursor: pointer;
+            transition: background 0.2s;
+        }
+
+        .checkbox-item:hover {
+            background: rgba(102, 126, 234, 0.1);
+            margin: 0 -10px;
+            padding: 12px 10px;
+            border-radius: 5px;
+        }
+
+        .checkbox-item:last-child {
+            border-bottom: none;
+        }
+
+        .checkbox-item input[type="checkbox"] {
+            width: 22px;
+            height: 22px;
+            margin-right: 12px;
+            margin-top: 2px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .checkbox-item label {
+            flex: 1;
+            cursor: pointer;
+            font-size: 1em;
+            color: #cbd5e1;
+        }
+
+        .checkbox-item input:checked + label {
+            color: #667eea;
+            text-decoration: line-through;
+        }
+
+        .info-box {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196F3;
+            border: 1px solid rgba(33, 150, 243, 0.2);
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+            font-size: 0.95em;
+            color: #90caf9;
+        }
+
+        .consultation-form {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 30px;
+            border-radius: 20px;
+            margin-top: 30px;
+        }
+
+        .consultation-form h2 {
+            color: #e2e8f0;
+            margin-bottom: 20px;
+            font-size: 1.8em;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: #cbd5e1;
+        }
+
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 12px;
+            background: #0f172a;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 8px;
+            font-size: 1em;
+            font-family: inherit;
+            color: #e2e8f0;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            border: none;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: transform 0.2s, box-shadow 0.2s;
+            width: 100%;
+            margin-top: 10px;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:active {
+            transform: translateY(0);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .btn-success {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .footer {
+            background: #0f172a;
+            color: white;
+            padding: 3rem 0;
+            text-align: center;
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .footer p {
+            margin: 0.5rem 0;
+            opacity: 0.8;
+            color: #cbd5e1;
+        }
+
+        .footer a {
+            color: #60a5fa;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .footer a:hover {
+            color: #93c5fd;
+            text-decoration: underline;
+        }
+
+        .save-indicator {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4caf50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 25px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+            display: none;
+            z-index: 1000;
+        }
+
+        .save-indicator.show {
+            display: block;
+            animation: fadeInOut 2s;
+        }
+
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            10%, 90% { opacity: 1; }
+        }
+
+        @media (max-width: 768px) {
+            .page-header h1 {
+                font-size: 1.8rem;
+            }
+            
+            .content {
+                padding: 20px 0;
+            }
+            
+            .section-title {
+                font-size: 1.4em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="container">
+            <div class="header-content">
+                <div>
+                    <h1><a href="index.html">개인사업자 재무전략</a></h1>
+                    <p class="subtitle">신대식 컨설팅</p>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>📋 개인사업자 상담 준비사항</h1>
+            <div class="subtitle">재무전략 컨설팅을 위한 체크리스트</div>
+        </div>
+    </section>
+
+    <div class="container">
+        <div class="progress-bar">
+            <div class="progress-info">
+                <span class="progress-text">준비 진행률</span>
+                <span class="progress-text" id="progress-percent">0%</span>
+            </div>
+            <div class="progress-bar-container">
+                <div class="progress-fill" id="progress-fill" style="width: 0%">0%</div>
+            </div>
+        </div>
+
+        <div class="notice-box">
+            <strong>💡 안내사항</strong>
+            <p>이 체크리스트는 상담 전 준비사항을 확인하는 용도입니다. <strong>서류 준비는 상담 전에 한번에 정리하셔도 됩니다.</strong> 우선 체크리스트를 통해 준비할 항목을 확인하고, 상담 일정이 확정되면 서류를 준비하시면 됩니다.</p>
+        </div>
+
+        <div class="content">
+            <!-- 기본 정보 -->
+            <div class="section">
+                <div class="section-title">✅ 기본 정보</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">1. 개인 정보</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info-name" data-category="basic">
+                        <label for="info-name">성명</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info-birth" data-category="basic">
+                        <label for="info-birth">생년월일</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info-contact" data-category="basic">
+                        <label for="info-contact">연락처 (휴대폰, 이메일)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info-address" data-category="basic">
+                        <label for="info-address">주소 (등기부등본 주소)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="info-family" data-category="basic">
+                        <label for="info-family">가족 구성원 (배우자, 자녀)</label>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2. 사업 정보</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-number" data-category="basic">
+                        <label for="biz-number">사업자등록번호</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-name" data-category="basic">
+                        <label for="biz-name">사업자명</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-type" data-category="basic">
+                        <label for="biz-type">업종</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-start" data-category="basic">
+                        <label for="biz-start">사업 시작일</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-form" data-category="basic">
+                        <label for="biz-form">사업 형태 (개인사업자, 법인 전환 고려 여부)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-employees" data-category="basic">
+                        <label for="biz-employees">종업원 수</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="biz-address" data-category="basic">
+                        <label for="biz-address">사업장 주소</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 필수 서류 -->
+            <div class="section">
+                <div class="section-title">📄 필수 서류</div>
+                <div class="info-box">
+                    <strong>서류 준비 안내:</strong> 아래 서류들은 상담 전에 한번에 정리하셔도 됩니다. 상담 일정이 확정되면 준비하시면 됩니다.
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">1. 세무 관련 서류</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-tax-3yr" data-category="documents">
+                        <label for="doc-tax-3yr">종합소득세 신고서 (최근 3년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-vat-3yr" data-category="documents">
+                        <label for="doc-vat-3yr">부가가치세 신고서 (최근 3년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-withholding" data-category="documents">
+                        <label for="doc-withholding">원천징수 영수증 (최근 1년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-tax-audit" data-category="documents">
+                        <label for="doc-tax-audit">세무조사 관련 서류 (해당 시)</label>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">2. 사업 운영 관련 서류</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-sales-book" data-category="documents">
+                        <label for="doc-sales-book">매출장부 또는 회계장부 (최근 3년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-invoice" data-category="documents">
+                        <label for="doc-invoice">세금계산서 발행 내역</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-expenses" data-category="documents">
+                        <label for="doc-expenses">지출 증빙 (계산서, 영수증)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-lease" data-category="documents">
+                        <label for="doc-lease">임대차 계약서</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-loan" data-category="documents">
+                        <label for="doc-loan">대출 계약서 (사업자 대출)</label>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">3. 금융 관련 서류</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-biz-account" data-category="documents">
+                        <label for="doc-biz-account">사업자 통장 거래내역 (최근 1년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-personal-account" data-category="documents">
+                        <label for="doc-personal-account">개인 통장 거래내역 (최근 1년)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-loan-balance" data-category="documents">
+                        <label for="doc-loan-balance">대출 잔액 증명서</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-assets" data-category="documents">
+                        <label for="doc-assets">부동산 등기부등본 (소유 시)</label>
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">4. 보험/연금 관련 서류</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-insurance" data-category="documents">
+                        <label for="doc-insurance">가입 보험 증권 (생명/손해/연금)</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-pension" data-category="documents">
+                        <label for="doc-pension">국민연금 가입 내역</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="doc-irp" data-category="documents">
+                        <label for="doc-irp">IRP 계좌 내역</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상담 전 확인사항 -->
+            <div class="section">
+                <div class="section-title">💡 상담 전 확인사항</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">현재 고민사항</div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="concern-tax" data-category="concerns">
+                        <label for="concern-tax">세금 부담이 너무 크다</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="concern-retirement" data-category="concerns">
+                        <label for="concern-retirement">노후 자금이 걱정된다</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="concern-expansion" data-category="concerns">
+                        <label for="concern-expansion">사업 확장 자금이 필요하다</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="concern-inheritance" data-category="concerns">
+                        <label for="concern-inheritance">상속/증여 계획이 있다</label>
+                    </div>
+                    <div class="checkbox-item">
+                        <input type="checkbox" id="concern-corporate" data-category="concerns">
+                        <label for="concern-corporate">법인 전환을 고려하고 있다</label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- 상담 신청 폼 -->
+            <div class="consultation-form">
+                <h2>📞 상담 신청</h2>
+                <p style="margin-bottom: 20px; color: #cbd5e1;">체크리스트를 작성하신 후, 아래 정보를 입력하고 상담을 신청하세요.</p>
+                
+                <div class="form-group">
+                    <label for="consultant-name">성명 *</label>
+                    <input type="text" id="consultant-name" placeholder="홍길동" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="consultant-phone">연락처 *</label>
+                    <input type="tel" id="consultant-phone" placeholder="010-1234-5678" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="consultant-email">이메일</label>
+                    <input type="email" id="consultant-email" placeholder="example@email.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="consultant-business">사업자명</label>
+                    <input type="text" id="consultant-business" placeholder="사업자명">
+                </div>
+
+                <div class="form-group">
+                    <label for="consultant-type">주요 관심사</label>
+                    <select id="consultant-type">
+                        <option value="">선택하세요</option>
+                        <option value="세금절세">세금 절세</option>
+                        <option value="노후자금">노후 자금 마련</option>
+                        <option value="보험설계">보험 설계</option>
+                        <option value="연금설계">연금 설계</option>
+                        <option value="재무설계">종합 재무 설계</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="consultant-message">추가 메시지</label>
+                    <textarea id="consultant-message" placeholder="상담 시 다루고 싶은 내용이나 질문을 입력하세요."></textarea>
+                </div>
+
+                <button class="btn btn-success" onclick="submitConsultation()">
+                    📱 상담 신청하기 (010-2088-5383으로 전송)
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <p><strong>개인사업자 재무전략 컨설팅</strong> | 신대식</p>
+            <p>📞 상담 문의: <a href="tel:01020885383">010-2088-5383</a></p>
+            <p>🌐 웹사이트: <a href="index.html">개인사업자 재무전략</a></p>
+            <p style="margin-top: 1.5rem; opacity: 0.6;">
+                © SYNDΛESIK · Individual Strategy · Empathy Strategy 2025
+            </p>
+        </div>
+    </footer>
+
+    <div class="save-indicator" id="save-indicator">✅ 자동 저장됨</div>
+
+    <script>
+        // 체크리스트 데이터 구조
+        const checklistData = {
+            basic: [],
+            documents: [],
+            concerns: []
+        };
+
+        // 로컬스토리지에서 불러오기
+        function loadChecklist() {
+            const saved = localStorage.getItem('consultation_checklist');
+            if (saved) {
+                const data = JSON.parse(saved);
+                // 체크박스 상태 복원
+                Object.keys(data).forEach(category => {
+                    data[category].forEach(itemId => {
+                        const checkbox = document.getElementById(itemId);
+                        if (checkbox) {
+                            checkbox.checked = true;
+                        }
+                    });
+                });
+                updateProgress();
+            }
+        }
+
+        // 로컬스토리지에 저장
+        function saveChecklist() {
+            const data = {
+                basic: [],
+                documents: [],
+                concerns: []
+            };
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                if (checkbox.checked) {
+                    const category = checkbox.getAttribute('data-category');
+                    if (category && data[category]) {
+                        data[category].push(checkbox.id);
+                    }
+                }
+            });
+
+            localStorage.setItem('consultation_checklist', JSON.stringify(data));
+            showSaveIndicator();
+        }
+
+        // 진행률 업데이트
+        function updateProgress() {
+            const checkboxes = document.querySelectorAll('input[type="checkbox"]');
+            const checked = document.querySelectorAll('input[type="checkbox"]:checked');
+            const progress = checkboxes.length > 0 ? Math.round((checked.length / checkboxes.length) * 100) : 0;
+
+            document.getElementById('progress-percent').textContent = progress + '%';
+            const progressFill = document.getElementById('progress-fill');
+            progressFill.style.width = progress + '%';
+            progressFill.textContent = progress + '%';
+        }
+
+        // 저장 표시
+        function showSaveIndicator() {
+            const indicator = document.getElementById('save-indicator');
+            indicator.classList.add('show');
+            setTimeout(() => {
+                indicator.classList.remove('show');
+            }, 2000);
+        }
+
+        // 체크박스 변경 이벤트
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChecklist();
+            updateProgress();
+
+            document.querySelectorAll('input[type="checkbox"]').forEach(checkbox => {
+                checkbox.addEventListener('change', function() {
+                    saveChecklist();
+                    updateProgress();
+                });
+            });
+        });
+
+        // 상담 신청 제출
+        function submitConsultation() {
+            const name = document.getElementById('consultant-name').value;
+            const phone = document.getElementById('consultant-phone').value;
+            const email = document.getElementById('consultant-email').value;
+            const business = document.getElementById('consultant-business').value;
+            const type = document.getElementById('consultant-type').value;
+            const message = document.getElementById('consultant-message').value;
+
+            if (!name || !phone) {
+                alert('성명과 연락처는 필수 입력 항목입니다.');
+                return;
+            }
+
+            // 체크리스트 데이터 수집
+            const checkedItems = {
+                basic: [],
+                documents: [],
+                concerns: []
+            };
+
+            document.querySelectorAll('input[type="checkbox"]:checked').forEach(checkbox => {
+                const category = checkbox.getAttribute('data-category');
+                const label = checkbox.nextElementSibling.textContent;
+                if (category && checkedItems[category]) {
+                    checkedItems[category].push(label);
+                }
+            });
+
+            // 메시지 생성
+            let smsMessage = `[상담 신청]\n\n`;
+            smsMessage += `성명: ${name}\n`;
+            smsMessage += `연락처: ${phone}\n`;
+            if (email) smsMessage += `이메일: ${email}\n`;
+            if (business) smsMessage += `사업자명: ${business}\n`;
+            if (type) smsMessage += `주요 관심사: ${type}\n`;
+            smsMessage += `\n[체크리스트 진행률: ${document.getElementById('progress-percent').textContent}]\n\n`;
+
+            if (checkedItems.basic.length > 0) {
+                smsMessage += `[기본 정보]\n`;
+                checkedItems.basic.forEach(item => {
+                    smsMessage += `✓ ${item}\n`;
+                });
+                smsMessage += `\n`;
+            }
+
+            if (checkedItems.concerns.length > 0) {
+                smsMessage += `[고민사항]\n`;
+                checkedItems.concerns.forEach(item => {
+                    smsMessage += `✓ ${item}\n`;
+                });
+                smsMessage += `\n`;
+            }
+
+            if (checkedItems.documents.length > 0) {
+                smsMessage += `[준비된 서류]\n`;
+                checkedItems.documents.forEach(item => {
+                    smsMessage += `✓ ${item}\n`;
+                });
+                smsMessage += `\n`;
+            } else {
+                smsMessage += `[서류 준비]\n`;
+                smsMessage += `서류는 상담 전에 한번에 정리 예정입니다.\n\n`;
+            }
+
+            if (message) {
+                smsMessage += `[추가 메시지]\n${message}\n\n`;
+            }
+
+            smsMessage += `상담 일정 조율 부탁드립니다.`;
+
+            // 전송 방법 선택 UI 표시
+            const phoneNumber = '010-2088-5383';
+            const phoneNumberClean = phoneNumber.replace(/-/g, '');
+            const encodedMessage = encodeURIComponent(smsMessage);
+            
+            // 전송 방법 선택 모달
+            const modal = document.createElement('div');
+            modal.style.cssText = `
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                background: rgba(0,0,0,0.8);
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 10000;
+            `;
+            
+            modal.innerHTML = `
+                <div style="background: #1a202c; padding: 30px; border-radius: 15px; max-width: 500px; width: 90%; max-height: 90%; overflow-y: auto; border: 1px solid rgba(255, 255, 255, 0.1);">
+                    <h2 style="margin-bottom: 20px; color: #e2e8f0;">📱 상담 신청 전송 방법 선택</h2>
+                    <p style="margin-bottom: 20px; color: #cbd5e1;">아래 방법 중 하나를 선택하여 전송하세요.</p>
+                    
+                    <div style="margin-bottom: 15px;">
+                        <button onclick="sendViaSMS()" class="btn" style="margin-bottom: 10px;">
+                            📱 SMS로 전송
+                        </button>
+                        <button onclick="sendViaKakaoTalk()" class="btn btn-secondary" style="margin-bottom: 10px;">
+                            💬 카카오톡으로 전송
+                        </button>
+                        <button onclick="copyToClipboard()" class="btn" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%); margin-bottom: 10px;">
+                            📋 클립보드에 복사
+                        </button>
+                    </div>
+                    
+                    <div style="background: #0f172a; padding: 15px; border-radius: 8px; margin-top: 20px; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <strong style="color: #cbd5e1;">전송할 내용 미리보기:</strong>
+                        <pre style="white-space: pre-wrap; font-family: inherit; font-size: 0.9em; margin-top: 10px; max-height: 200px; overflow-y: auto; color: #cbd5e1;">${smsMessage}</pre>
+                    </div>
+                    
+                    <button onclick="this.closest('div[style*=\"position: fixed\"]').remove()" 
+                            style="margin-top: 20px; padding: 10px 20px; background: #6c757d; color: white; border: none; border-radius: 5px; cursor: pointer; width: 100%;">
+                        닫기
+                    </button>
+                </div>
+            `;
+            
+            document.body.appendChild(modal);
+            
+            // 전송 함수들
+            window.sendViaSMS = function() {
+                const smsLink = `sms:${phoneNumberClean}?body=${encodedMessage}`;
+                window.location.href = smsLink;
+                setTimeout(() => {
+                    modal.remove();
+                    alert('SMS 앱이 열렸습니다. 전송 버튼을 눌러주세요.');
+                }, 500);
+            };
+            
+            window.sendViaKakaoTalk = function() {
+                // 카카오톡 링크 (모바일)
+                const kakaoLink = `kakaotalk://chat?phone=${phoneNumberClean}`;
+                window.location.href = kakaoLink;
+                
+                // 데스크톱 대체: 클립보드 복사
+                setTimeout(() => {
+                    copyToClipboard();
+                    alert('카카오톡이 열리지 않으면, 클립보드에 복사된 내용을 카카오톡으로 전송해주세요.');
+                }, 1000);
+            };
+            
+            window.copyToClipboard = function() {
+                navigator.clipboard.writeText(smsMessage).then(() => {
+                    alert('✅ 상담 신청 내용이 클립보드에 복사되었습니다!\n\n' +
+                          '010-2088-5383으로 문자 또는 카카오톡을 보내주세요.');
+                    modal.remove();
+                }).catch(() => {
+                    // 클립보드 복사 실패 시 텍스트 영역 표시
+                    const textArea = document.createElement('textarea');
+                    textArea.value = smsMessage;
+                    textArea.style.position = 'fixed';
+                    textArea.style.opacity = '0';
+                    document.body.appendChild(textArea);
+                    textArea.select();
+                    try {
+                        document.execCommand('copy');
+                        alert('✅ 상담 신청 내용이 클립보드에 복사되었습니다!\n\n' +
+                              '010-2088-5383으로 문자 또는 카카오톡을 보내주세요.');
+                        modal.remove();
+                    } catch (err) {
+                        alert('복사에 실패했습니다. 아래 내용을 직접 복사해주세요.');
+                    }
+                    document.body.removeChild(textArea);
+                });
+            };
+        }
+    </script>
+</body>
+</html>
+
