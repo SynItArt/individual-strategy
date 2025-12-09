@@ -863,73 +863,69 @@
             }
         });
 
-        // Mouse wheel navigation (with debounce)
-        let wheelTimeout;
-        window.addEventListener('wheel', (e) => {
-            if (isScrolling) return;
-            
-            // 맞춤형 제안서 섹션(section-0)에서는 약간 느리게 (버튼 클릭 가능하도록)
-            const isProposalSection = currentSection === 0;
-            const debounceTime = isProposalSection ? 150 : 50; // 제안서 섹션은 150ms 대기
-            const scrollDelay = isProposalSection ? 1800 : 1500; // 제안서 섹션은 1.8초 대기
-            const wheelThreshold = isProposalSection ? 70 : 50; // 제안서 섹션은 약간 높은 임계값
-            
-            clearTimeout(wheelTimeout);
-            wheelTimeout = setTimeout(() => {
-                const delta = e.deltaY;
-                if (Math.abs(delta) > wheelThreshold) {
-                    if (delta > 0 && currentSection < sections.length - 1) {
-                        isScrolling = true;
-                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, scrollDelay);
-                    } else if (delta < 0 && currentSection > 0) {
-                        isScrolling = true;
-                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, scrollDelay);
-                    }
-                }
-            }, debounceTime);
-        }, { passive: true });
+        // Mouse wheel navigation - 자동 넘김 제거, 사용자가 직접 스크롤하도록 허용
+        // CSS scroll-snap이 자연스럽게 작동하도록 함
 
-        // Touch swipe support (모바일)
+        // Touch swipe support - 사용자 스와이프 속도에 반응
         let touchStartY = 0;
+        let touchStartTime = 0;
         let touchEndY = 0;
+        let touchEndTime = 0;
+        let isTouching = false;
 
         window.addEventListener('touchstart', (e) => {
             touchStartY = e.changedTouches[0].screenY;
+            touchStartTime = Date.now();
+            isTouching = true;
+        }, { passive: true });
+
+        window.addEventListener('touchmove', (e) => {
+            // 터치 중에는 사용자가 직접 스크롤할 수 있도록 함
+            // CSS scroll-snap이 자연스럽게 작동
         }, { passive: true });
 
         window.addEventListener('touchend', (e) => {
             touchEndY = e.changedTouches[0].screenY;
+            touchEndTime = Date.now();
+            isTouching = false;
             handleSwipe();
         }, { passive: true });
 
         function handleSwipe() {
-            // 맞춤형 제안서 섹션에서는 스와이프를 약간 느리게
-            const isProposalSection = currentSection === 0;
-            const swipeThreshold = isProposalSection ? 70 : 50; // 제안서 섹션은 약간 높은 임계값
-            const scrollDelay = isProposalSection ? 1800 : 1500; // 제안서 섹션은 1.8초 대기
             const diff = touchStartY - touchEndY;
+            const timeDiff = touchEndTime - touchStartTime;
+            const swipeSpeed = Math.abs(diff) / Math.max(timeDiff, 1); // 픽셀/ms
             
-            if (Math.abs(diff) > swipeThreshold) {
+            // 최소 스와이프 거리 (너무 작은 움직임은 무시)
+            const minSwipeDistance = 50;
+            
+            if (Math.abs(diff) > minSwipeDistance) {
+                // 스와이프 속도에 따라 애니메이션 속도 조절
+                // 빠르게 스와이프하면 빠르게 이동, 느리게 스와이프하면 느리게 이동
+                const baseSpeed = 300; // 기본 속도 (ms)
+                const speedMultiplier = Math.max(0.5, Math.min(2, swipeSpeed / 2)); // 0.5배 ~ 2배
+                const animationDuration = baseSpeed / speedMultiplier;
+                
                 if (diff > 0 && currentSection < sections.length - 1) {
                     // 아래로 스와이프 (다음 섹션)
                     isScrolling = true;
-                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    sections[currentSection + 1].scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, scrollDelay);
+                    }, animationDuration);
                 } else if (diff < 0 && currentSection > 0) {
                     // 위로 스와이프 (이전 섹션)
                     isScrolling = true;
-                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    sections[currentSection - 1].scrollIntoView({ 
+                        behavior: 'smooth', 
+                        block: 'start' 
+                    });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, scrollDelay);
+                    }, animationDuration);
                 }
             }
         }
