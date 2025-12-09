@@ -235,6 +235,8 @@
         /* Case Study Section - 미용업 제안서 */
         .case-study-section {
             background: #1e293b;
+            scroll-snap-stop: always; /* 제안서 섹션에서는 스크롤 멈춤 */
+            scroll-snap-align: start;
         }
         
         .section-header {
@@ -809,10 +811,13 @@
             dot.addEventListener('click', () => {
                 if (sections[index]) {
                     isScrolling = true;
-                    sections[index].scrollIntoView({ behavior: 'smooth' });
+                    // 맞춤형 제안서 섹션으로 이동할 때는 더 느리게
+                    const isProposalSection = index === 1;
+                    const scrollDelay = isProposalSection ? 3000 : 2000;
+                    sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 2000);
+                    }, scrollDelay);
                 }
             });
         });
@@ -829,11 +834,18 @@
         // Keyboard navigation
         let keyScrollTimeout;
         window.addEventListener('keydown', (e) => {
+            // 맞춤형 제안서 섹션에서는 키보드 네비게이션 비활성화 (클릭 가능하도록)
+            const isProposalSection = currentSection === 1;
+            if (isProposalSection && (e.key === 'ArrowDown' || e.key === 'PageDown' || e.key === 'ArrowUp' || e.key === 'PageUp')) {
+                // 제안서 섹션에서는 키보드 스크롤 비활성화
+                return;
+            }
+            
             if (e.key === 'ArrowDown' || e.key === 'PageDown') {
                 e.preventDefault();
                 if (currentSection < sections.length - 1) {
                     isScrolling = true;
-                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
                     }, 2000);
@@ -842,7 +854,7 @@
                 e.preventDefault();
                 if (currentSection > 0) {
                     isScrolling = true;
-                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
                     }, 2000);
@@ -855,25 +867,30 @@
         window.addEventListener('wheel', (e) => {
             if (isScrolling) return;
             
+            // 맞춤형 제안서 섹션(section-1)에서는 더 느리게
+            const isProposalSection = currentSection === 1;
+            const debounceTime = isProposalSection ? 300 : 50; // 제안서 섹션은 300ms 대기
+            const scrollDelay = isProposalSection ? 3000 : 2000; // 제안서 섹션은 3초 대기
+            
             clearTimeout(wheelTimeout);
             wheelTimeout = setTimeout(() => {
                 const delta = e.deltaY;
                 if (Math.abs(delta) > 50) {
                     if (delta > 0 && currentSection < sections.length - 1) {
                         isScrolling = true;
-                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                         setTimeout(() => {
                             isScrolling = false;
-                        }, 1000);
+                        }, scrollDelay);
                     } else if (delta < 0 && currentSection > 0) {
                         isScrolling = true;
-                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                         setTimeout(() => {
                             isScrolling = false;
-                        }, 1000);
+                        }, scrollDelay);
                     }
                 }
-            }, 50);
+            }, debounceTime);
         }, { passive: true });
 
         // Touch swipe support (모바일)
@@ -893,21 +910,25 @@
             const swipeThreshold = 50;
             const diff = touchStartY - touchEndY;
             
+            // 맞춤형 제안서 섹션에서는 스와이프를 더 느리게
+            const isProposalSection = currentSection === 1;
+            const scrollDelay = isProposalSection ? 3000 : 2000;
+            
             if (Math.abs(diff) > swipeThreshold) {
                 if (diff > 0 && currentSection < sections.length - 1) {
                     // 아래로 스와이프 (다음 섹션)
                     isScrolling = true;
-                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
+                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 2000);
+                    }, scrollDelay);
                 } else if (diff < 0 && currentSection > 0) {
                     // 위로 스와이프 (이전 섹션)
                     isScrolling = true;
-                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
+                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 2000);
+                    }, scrollDelay);
                 }
             }
         }
