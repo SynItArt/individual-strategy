@@ -21,10 +21,9 @@
             box-sizing: border-box;
         }
         
-        html {
-            scroll-behavior: smooth;
-            scroll-snap-type: y mandatory;
-            overflow-x: hidden;
+        html, body {
+            height: 100%;
+            overflow: hidden;
         }
         
         body {
@@ -32,7 +31,22 @@
             background: #0f172a;
             color: #e2e8f0;
             line-height: 1.7;
-            overflow-x: hidden;
+        }
+        
+        /* Horizontal Scroll Container */
+        .slides-container {
+            display: flex;
+            width: 100vw;
+            height: 100vh;
+            overflow-x: auto;
+            overflow-y: hidden;
+            scroll-snap-type: x mandatory;
+            scroll-behavior: smooth;
+            -webkit-overflow-scrolling: touch;
+        }
+        
+        .slides-container::-webkit-scrollbar {
+            display: none;
         }
         
         .container {
@@ -80,16 +94,19 @@
             opacity: 0.9;
         }
 
-        /* Navigation Dots */
+        /* Navigation Dots - Bottom */
         .nav-dots {
             position: fixed;
-            right: 30px;
-            top: 50%;
-            transform: translateY(-50%);
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
             z-index: 999;
             display: flex;
-            flex-direction: column;
             gap: 15px;
+            background: rgba(26, 32, 44, 0.8);
+            padding: 15px 25px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
         }
 
         .nav-dot {
@@ -109,8 +126,42 @@
             transform: scale(1.3);
         }
 
+        /* Navigation Arrows */
+        .nav-arrow {
+            position: fixed;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(26, 32, 44, 0.8);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 999;
+            transition: all 0.3s ease;
+            border: 2px solid rgba(255, 255, 255, 0.2);
+            font-size: 1.5rem;
+        }
+
+        .nav-arrow:hover {
+            background: #667eea;
+            transform: translateY(-50%) scale(1.1);
+        }
+
+        .nav-arrow.prev {
+            left: 20px;
+        }
+
+        .nav-arrow.next {
+            right: 20px;
+        }
+
         /* Section Base Styles */
         section {
+            min-width: 100vw;
             min-height: 100vh;
             scroll-snap-align: start;
             scroll-snap-stop: always;
@@ -119,6 +170,7 @@
             justify-content: center;
             position: relative;
             padding-top: 80px;
+            flex-shrink: 0;
         }
         
         /* Hero Section - 내 소개 */
@@ -445,7 +497,6 @@
             text-align: center;
             border-top: 1px solid rgba(255, 255, 255, 0.1);
             min-height: auto;
-            scroll-snap-align: none;
         }
         
         .footer p {
@@ -480,7 +531,7 @@
         /* Scroll Indicator */
         .scroll-indicator {
             position: absolute;
-            bottom: 30px;
+            bottom: 100px;
             left: 50%;
             transform: translateX(-50%);
             display: flex;
@@ -492,25 +543,30 @@
         }
 
         .scroll-indicator::after {
-            content: '↓';
+            content: '→';
             font-size: 1.5rem;
-            animation: bounce 2s infinite;
+            animation: slideRight 2s infinite;
         }
 
-        @keyframes bounce {
+        @keyframes slideRight {
             0%, 20%, 50%, 80%, 100% {
-                transform: translateY(0);
+                transform: translateX(0);
             }
             40% {
-                transform: translateY(-10px);
+                transform: translateX(10px);
             }
             60% {
-                transform: translateY(-5px);
+                transform: translateX(5px);
             }
         }
         
         @media (max-width: 768px) {
             .nav-dots {
+                bottom: 20px;
+                padding: 10px 15px;
+            }
+
+            .nav-arrow {
                 display: none;
             }
 
@@ -533,10 +589,6 @@
             .transition-section h2 {
                 font-size: 2rem;
             }
-
-            html {
-                scroll-snap-type: y proximity;
-            }
         }
     </style>
 </head>
@@ -553,6 +605,10 @@
         </div>
     </header>
 
+    <!-- Navigation Arrows -->
+    <div class="nav-arrow prev" onclick="slideToPrev()">‹</div>
+    <div class="nav-arrow next" onclick="slideToNext()">›</div>
+
     <!-- Navigation Dots -->
     <div class="nav-dots">
         <div class="nav-dot active" data-section="0" title="소개"></div>
@@ -562,234 +618,236 @@
         <div class="nav-dot" data-section="4" title="법인 전략"></div>
     </div>
 
-    <!-- Hero Section - 내 소개 -->
-    <section class="hero-intro" id="section-0">
-        <div class="container">
-            <h2>개인사업자님의 하루가<br>조금 덜 무거워지도록</h2>
-            <p class="intro-text">
-                매일 숫자와 책임 사이에서 버티고 계신 개인사업자님,<br>
-                함께 길을 정리해 드리고 싶은 신대식입니다.
-            </p>
-            
-            <div class="profile-card">
-                <div class="profile-picture">
-                    👤
-                </div>
-                <h3>신대식</h3>
-                <p class="subtitle">Owner Strategy Consultant</p>
+    <!-- Slides Container -->
+    <div class="slides-container" id="slidesContainer">
+        <!-- Hero Section - 내 소개 -->
+        <section class="hero-intro" id="section-0">
+            <div class="container">
+                <h2>개인사업자님의 하루가<br>조금 덜 무거워지도록</h2>
+                <p class="intro-text">
+                    매일 숫자와 책임 사이에서 버티고 계신 개인사업자님,<br>
+                    함께 길을 정리해 드리고 싶은 신대식입니다.
+                </p>
                 
-                <div class="profile-info">
-                    <div class="profile-info-item">
-                        <h4>제가 본 현장</h4>
-                        <p>
-                            법무법인·회생/파산 실무, 소방·안전·ESG, 장애·현장 봉사, 
-                            수많은 개인사업자님들의 세금·채무·노후 고민까지. 
-                            "조금만 더 일찍 같이 봤으면 좋았을" 순간들을 많이 목격했습니다.
+                <div class="profile-card">
+                    <div class="profile-picture">
+                        👤
+                    </div>
+                    <h3>신대식</h3>
+                    <p class="subtitle">Owner Strategy Consultant</p>
+                    
+                    <div class="profile-info">
+                        <div class="profile-info-item">
+                            <h4>제가 본 현장</h4>
+                            <p>
+                                법무법인·회생/파산 실무, 소방·안전·ESG, 장애·현장 봉사, 
+                                수많은 개인사업자님들의 세금·채무·노후 고민까지. 
+                                "조금만 더 일찍 같이 봤으면 좋았을" 순간들을 많이 목격했습니다.
+                            </p>
+                        </div>
+                        <div class="profile-info-item">
+                            <h4>그래서 하고 싶은 일</h4>
+                            <p>
+                                위기 직전이 아니라 <strong>"아직 괜찮을 때"</strong> 개인사업자님 곁에서 
+                                숫자와 구조를 함께 들여다보고, 마음이 조금 가벼워지는 선택지를 한 장씩 만들어 가는 일입니다.
+                            </p>
+                        </div>
+                    </div>
+                    
+                    <div class="profile-link">
+                        <a href="https://synitart.github.io/corporate-strategy/%EF%BD%93%EF%BD%99%EF%BD%8E.html" target="_blank">상세 프로필 보기 →</a>
+                        <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; color: #94a3b8;">
+                            (상세 프로필 페이지에서 "개인사업자 페이지로 돌아가기" 버튼을 통해 돌아올 수 있습니다)
                         </p>
                     </div>
-                    <div class="profile-info-item">
-                        <h4>그래서 하고 싶은 일</h4>
-                        <p>
-                            위기 직전이 아니라 <strong>"아직 괜찮을 때"</strong> 개인사업자님 곁에서 
-                            숫자와 구조를 함께 들여다보고, 마음이 조금 가벼워지는 선택지를 한 장씩 만들어 가는 일입니다.
-                        </p>
-                    </div>
-                </div>
-                
-                <div class="profile-link">
-                    <a href="https://synitart.github.io/corporate-strategy/%EF%BD%93%EF%BD%99%EF%BD%8E.html" target="_blank">상세 프로필 보기 →</a>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; color: #94a3b8;">
-                        (상세 프로필 페이지에서 "개인사업자 페이지로 돌아가기" 버튼을 통해 돌아올 수 있습니다)
-                    </p>
                 </div>
             </div>
-        </div>
-        <div class="scroll-indicator">스크롤하여 더 보기</div>
-    </section>
+            <div class="scroll-indicator">스와이프하여 더 보기</div>
+        </section>
 
-    <!-- Case Study Section - 미용업 제안서 -->
-    <section class="case-study-section" id="section-1">
-        <div class="container">
-            <div class="section-header">
-                <h2>맞춤형 제안서 사례</h2>
-                <p>실제 개인사업자님을 위해 작성한 종합 제안서입니다</p>
-            </div>
-            
-            <div class="case-study-card">
-                <h3>📋 미용업 개인사업자 노후 대비 종합 제안서</h3>
-                <p class="subtitle">
-                    <strong>대상:</strong> 미용업 개인사업자 · 50대 초반<br>
-                    <strong>주요 관심사:</strong> 노후 불안 해소
-                </p>
-                
-                <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem;">
-                    미용업 개인사업자의 특성을 고려한 <strong>노후 자금 마련</strong>과 <strong>리스크 관리</strong>를 통한 
-                    안정적인 노후 설계를 제안합니다.
-                </p>
-                
-                <div class="case-features">
-                    <div class="case-feature">
-                        <h4>💰 세제적격연금</h4>
-                        <p>연 600만 원 불입, 연 72만 원 세액공제</p>
-                    </div>
-                    <div class="case-feature">
-                        <h4>🛡️ 종신보험</h4>
-                        <p>퇴직금 재원 마련 및 사망 리스크 대응</p>
-                    </div>
-                    <div class="case-feature">
-                        <h4>💊 통합보험</h4>
-                        <p>건강 리스크 대응 및 소득 손실 보장</p>
-                    </div>
-                    <div class="case-feature">
-                        <h4>📊 세무 최적화</h4>
-                        <p>종업원 복리후생, 화재보험 경비처리</p>
-                    </div>
+        <!-- Case Study Section - 미용업 제안서 -->
+        <section class="case-study-section" id="section-1">
+            <div class="container">
+                <div class="section-header">
+                    <h2>맞춤형 제안서 사례</h2>
+                    <p>실제 개인사업자님을 위해 작성한 종합 제안서입니다</p>
                 </div>
                 
-                <div style="background: #0f172a; padding: 2rem; border-radius: 15px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
-                    <h4 style="color: #e2e8f0; margin-bottom: 1rem; font-size: 1.3rem;">✨ 주요 특징</h4>
-                    <ul style="list-style: none; padding: 0; color: #cbd5e1;">
-                        <li style="padding: 0.5rem 0;">✓ <strong>상호작용형 계산기:</strong> 연금 수익을 실시간으로 계산</li>
-                        <li style="padding: 0.5rem 0;">✓ <strong>세부 분석:</strong> 세제적격연금의 모든 측면 상세 설명</li>
-                        <li style="padding: 0.5rem 0;">✓ <strong>실행 체크리스트:</strong> 문자로 바로 전송 가능</li>
-                        <li style="padding: 0.5rem 0;">✓ <strong>맞춤형 솔루션:</strong> 업종·연령·상황에 맞는 전략</li>
-                    </ul>
+                <div class="case-study-card">
+                    <h3>📋 미용업 개인사업자 노후 대비 종합 제안서</h3>
+                    <p class="subtitle">
+                        <strong>대상:</strong> 미용업 개인사업자 · 50대 초반<br>
+                        <strong>주요 관심사:</strong> 노후 불안 해소
+                    </p>
+                    
+                    <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem;">
+                        미용업 개인사업자의 특성을 고려한 <strong>노후 자금 마련</strong>과 <strong>리스크 관리</strong>를 통한 
+                        안정적인 노후 설계를 제안합니다.
+                    </p>
+                    
+                    <div class="case-features">
+                        <div class="case-feature">
+                            <h4>💰 세제적격연금</h4>
+                            <p>연 600만 원 불입, 연 72만 원 세액공제</p>
+                        </div>
+                        <div class="case-feature">
+                            <h4>🛡️ 종신보험</h4>
+                            <p>퇴직금 재원 마련 및 사망 리스크 대응</p>
+                        </div>
+                        <div class="case-feature">
+                            <h4>💊 통합보험</h4>
+                            <p>건강 리스크 대응 및 소득 손실 보장</p>
+                        </div>
+                        <div class="case-feature">
+                            <h4>📊 세무 최적화</h4>
+                            <p>종업원 복리후생, 화재보험 경비처리</p>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #0f172a; padding: 2rem; border-radius: 15px; margin-top: 2rem; border: 1px solid rgba(255, 255, 255, 0.1);">
+                        <h4 style="color: #e2e8f0; margin-bottom: 1rem; font-size: 1.3rem;">✨ 주요 특징</h4>
+                        <ul style="list-style: none; padding: 0; color: #cbd5e1;">
+                            <li style="padding: 0.5rem 0;">✓ <strong>상호작용형 계산기:</strong> 연금 수익을 실시간으로 계산</li>
+                            <li style="padding: 0.5rem 0;">✓ <strong>세부 분석:</strong> 세제적격연금의 모든 측면 상세 설명</li>
+                            <li style="padding: 0.5rem 0;">✓ <strong>맞춤형 솔루션:</strong> 업종·연령·상황에 맞는 전략</li>
+                        </ul>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 2rem;">
+                        <a href="개인사업자/미용업_50대초반_노후대비_제안서.html" class="btn-case">
+                            📄 제안서 전체 보기 →
+                        </a>
+                    </div>
+                    
+                    <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.2);">
+                        <p style="color: #fbbf24; font-size: 0.9rem; line-height: 1.6; margin: 0;">
+                            ⚠️ <strong>주의사항:</strong> 본 제안서에 기재된 금액, 이율, 연금액 등은 가상으로 산출한 예시입니다. 
+                            실제 가입하시는 상품마다 이율, 연금액, 보장 내용 등이 상이할 수 있으므로, 
+                            반드시 전문가와 세부 상담을 거친 후 결정하시기 바랍니다.
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section class="services-section" id="section-2">
+            <div class="container">
+                <div class="section-header">
+                    <h2>이런 일도 합니다</h2>
+                    <p>개인사업자님을 위한 4가지 핵심 전략</p>
+                </div>
+                
+                <div class="services-grid">
+                    <div class="service-card">
+                        <div class="service-icon">📊</div>
+                        <h3>PART 1 · 사업소득과 세금</h3>
+                        <p>
+                            사업소득 신고서를 한 장으로 요약하고, 
+                            "좋다/보통/주의" 3색으로 현재 위치를 파악합니다.
+                        </p>
+                        <a href="presentations/part1-tax.html" class="btn-service">자세히 보기 →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">💰</div>
+                        <h3>PART 2 · 노후 자금 마련</h3>
+                        <p>
+                            사업은 잘 되는데 개인 통장이 비어있을 때, 
+                            세제적격연금과 종신보험을 활용한 노후 설계를 제안합니다.
+                        </p>
+                        <a href="presentations/part2-retirement.html" class="btn-service">자세히 보기 →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">💼</div>
+                        <h3>PART 3 · 세무 절세 전략</h3>
+                        <p>
+                            세금이 너무 많이 나와 부담스러울 때, 
+                            합법적인 절세 방안을 단계별로 제시합니다.
+                        </p>
+                        <a href="presentations/part3-tax-saving.html" class="btn-service">자세히 보기 →</a>
+                    </div>
+                    
+                    <div class="service-card">
+                        <div class="service-icon">🛡️</div>
+                        <h3>PART 4 · 리스크 관리</h3>
+                        <p>
+                            노후와 리스크 이야기를 꺼내기 어려울 때, 
+                            건강·사망·사업 리스크를 체계적으로 관리합니다.
+                        </p>
+                        <a href="presentations/part4-risk.html" class="btn-service">자세히 보기 →</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Consultation Checklist Section -->
+        <section class="checklist-section" id="section-3">
+            <div class="container">
+                <div class="section-header">
+                    <h2>📋 상담 준비사항 체크리스트</h2>
+                    <p>상담 전 준비사항을 확인하고 체크리스트를 작성하세요</p>
                 </div>
                 
                 <div style="text-align: center; margin-top: 2rem;">
-                    <a href="개인사업자/미용업_50대초반_노후대비_제안서.html" class="btn-case">
-                        📄 제안서 전체 보기 →
-                    </a>
-                </div>
-                
-                <div style="margin-top: 2rem; padding: 1.5rem; background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.2);">
-                    <p style="color: #fbbf24; font-size: 0.9rem; line-height: 1.6; margin: 0;">
-                        ⚠️ <strong>주의사항:</strong> 본 제안서에 기재된 금액, 이율, 연금액 등은 가상으로 산출한 예시입니다. 
-                        실제 가입하시는 상품마다 이율, 연금액, 보장 내용 등이 상이할 수 있으므로, 
-                        반드시 전문가와 세부 상담을 거친 후 결정하시기 바랍니다.
-                    </p>
+                    <div style="background: #1a202c; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 3rem; max-width: 700px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
+                        <h3 style="font-size: 1.8rem; color: #e2e8f0; margin-bottom: 1.5rem; font-weight: 700;">상담 준비를 시작하세요</h3>
+                        <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; line-height: 1.8;">
+                            개인사업자 재무전략 상담을 위해 필요한 정보와 서류를 체크리스트로 확인하실 수 있습니다.<br>
+                            <strong style="color: #fbbf24;">서류 준비는 상담 전에 한번에 정리하셔도 됩니다.</strong>
+                        </p>
+                        <a href="consultation_checklist.html" class="btn-case" style="display: inline-block;">
+                            📋 체크리스트 작성하기 →
+                        </a>
+                    </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Services Section -->
-    <section class="services-section" id="section-2">
-        <div class="container">
-            <div class="section-header">
-                <h2>이런 일도 합니다</h2>
-                <p>개인사업자님을 위한 4가지 핵심 전략</p>
+        <!-- Transition Section -->
+        <section class="transition-section" id="section-4">
+            <div class="container">
+                <h2>법인기업 대표자님도 함께 합니다</h2>
+                <p>
+                    개인사업자뿐만 아니라 법인기업 대표자님들의 재무전략도 함께 도와드립니다.<br>
+                    법인 세무, CEO 소득설계, 가업승계 등 종합적인 컨설팅을 제공합니다.
+                </p>
+                <a href="https://synitart.github.io/corporate-strategy/" class="btn-transition" target="_blank">
+                    법인 전략 보기 →
+                </a>
             </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>PART 1 · 사업소득과 세금</h3>
-                    <p>
-                        사업소득 신고서를 한 장으로 요약하고, 
-                        "좋다/보통/주의" 3색으로 현재 위치를 파악합니다.
-                    </p>
-                    <a href="presentations/part1-tax.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">💰</div>
-                    <h3>PART 2 · 노후 자금 마련</h3>
-                    <p>
-                        사업은 잘 되는데 개인 통장이 비어있을 때, 
-                        세제적격연금과 종신보험을 활용한 노후 설계를 제안합니다.
-                    </p>
-                    <a href="presentations/part2-retirement.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">💼</div>
-                    <h3>PART 3 · 세무 절세 전략</h3>
-                    <p>
-                        세금이 너무 많이 나와 부담스러울 때, 
-                        합법적인 절세 방안을 단계별로 제시합니다.
-                    </p>
-                    <a href="presentations/part3-tax-saving.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🛡️</div>
-                    <h3>PART 4 · 리스크 관리</h3>
-                    <p>
-                        노후와 리스크 이야기를 꺼내기 어려울 때, 
-                        건강·사망·사업 리스크를 체계적으로 관리합니다.
-                    </p>
-                    <a href="presentations/part4-risk.html" class="btn-service">자세히 보기 →</a>
-                </div>
-            </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Consultation Checklist Section -->
-    <section class="checklist-section" id="section-3">
-        <div class="container">
-            <div class="section-header">
-                <h2>📋 상담 준비사항 체크리스트</h2>
-                <p>상담 전 준비사항을 확인하고 체크리스트를 작성하세요</p>
-            </div>
-            
-            <div style="text-align: center; margin-top: 2rem;">
-                <div style="background: #1a202c; border: 1px solid rgba(255, 255, 255, 0.1); border-radius: 20px; padding: 3rem; max-width: 700px; margin: 0 auto; box-shadow: 0 20px 60px rgba(0,0,0,0.5);">
-                    <h3 style="font-size: 1.8rem; color: #e2e8f0; margin-bottom: 1.5rem; font-weight: 700;">상담 준비를 시작하세요</h3>
-                    <p style="font-size: 1.1rem; color: #cbd5e1; margin-bottom: 2rem; line-height: 1.8;">
-                        개인사업자 재무전략 상담을 위해 필요한 정보와 서류를 체크리스트로 확인하실 수 있습니다.<br>
-                        <strong style="color: #fbbf24;">서류 준비는 상담 전에 한번에 정리하셔도 됩니다.</strong>
+        <!-- Disclaimer Section -->
+        <section class="disclaimer-section" id="section-5">
+            <div class="container">
+                <div style="max-width: 900px; margin: 0 auto; padding: 2rem; background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.2);">
+                    <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700;">⚠️ 중요 안내사항</h4>
+                    <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; margin: 0;">
+                        본 웹사이트 및 제안서에 기재된 모든 금액, 이율, 연금액, 세액공제액 등은 <strong style="color: #fbbf24;">가상으로 산출한 예시</strong>입니다. 
+                        실제 가입하시는 상품마다 이율, 연금액, 보장 내용, 수수료 등이 상이할 수 있으며, 
+                        시장 상황 및 법령 변경에 따라 변동될 수 있습니다. 
+                        따라서 반드시 <strong style="color: #e2e8f0;">전문가와 세부 상담을 거친 후</strong> 본인의 상황에 맞는 최적의 상품을 선택하시기 바랍니다.
                     </p>
-                    <a href="consultation_checklist.html" class="btn-case" style="display: inline-block;">
-                        📋 체크리스트 작성하기 →
-                    </a>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <!-- Transition Section -->
-    <section class="transition-section" id="section-4">
-        <div class="container">
-            <h2>법인기업 대표자님도 함께 합니다</h2>
-            <p>
-                개인사업자뿐만 아니라 법인기업 대표자님들의 재무전략도 함께 도와드립니다.<br>
-                법인 세무, CEO 소득설계, 가업승계 등 종합적인 컨설팅을 제공합니다.
-            </p>
-            <a href="https://synitart.github.io/corporate-strategy/" class="btn-transition" target="_blank">
-                법인 전략 보기 →
-            </a>
-        </div>
-    </section>
-
-    <!-- Disclaimer Section -->
-    <section class="disclaimer-section" id="section-5">
-        <div class="container">
-            <div style="max-width: 900px; margin: 0 auto; padding: 2rem; background: rgba(251, 191, 36, 0.1); border-left: 4px solid #fbbf24; border-radius: 10px; border: 1px solid rgba(251, 191, 36, 0.2);">
-                <h4 style="color: #fbbf24; font-size: 1.1rem; margin-bottom: 1rem; font-weight: 700;">⚠️ 중요 안내사항</h4>
-                <p style="color: #cbd5e1; font-size: 0.95rem; line-height: 1.8; margin: 0;">
-                    본 웹사이트 및 제안서에 기재된 모든 금액, 이율, 연금액, 세액공제액 등은 <strong style="color: #fbbf24;">가상으로 산출한 예시</strong>입니다. 
-                    실제 가입하시는 상품마다 이율, 연금액, 보장 내용, 수수료 등이 상이할 수 있으며, 
-                    시장 상황 및 법령 변경에 따라 변동될 수 있습니다. 
-                    따라서 반드시 <strong style="color: #e2e8f0;">전문가와 세부 상담을 거친 후</strong> 본인의 상황에 맞는 최적의 상품을 선택하시기 바랍니다.
+        <!-- Footer -->
+        <section class="footer" id="section-6">
+            <div class="container">
+                <p><strong>개인사업자 재무전략 컨설팅</strong> | 신대식</p>
+                <p>📞 상담 문의: <a href="tel:01020885383">010-2088-5383</a></p>
+                <p style="margin-top: 1.5rem; opacity: 0.6;">
+                    © SYNDΛESIK · Individual Strategy · Empathy Strategy 2025
                 </p>
             </div>
-        </div>
-    </section>
-
-    <!-- Footer -->
-    <footer class="footer">
-        <div class="container">
-            <p><strong>개인사업자 재무전략 컨설팅</strong> | 신대식</p>
-            <p>📞 상담 문의: <a href="tel:01020885383">010-2088-5383</a></p>
-            <p style="margin-top: 1.5rem; opacity: 0.6;">
-                © SYNDΛESIK · Individual Strategy · Empathy Strategy 2025
-            </p>
-        </div>
-    </footer>
+        </section>
+    </div>
 
     <script>
-        // Navigation dots functionality
+        const slidesContainer = document.getElementById('slidesContainer');
         const sections = document.querySelectorAll('section[id^="section-"]');
         const navDots = document.querySelectorAll('.nav-dot');
         let currentSection = 0;
@@ -797,37 +855,51 @@
 
         // Update active dot based on scroll position
         function updateActiveDot() {
-            const scrollPos = window.scrollY + window.innerHeight / 2;
+            const scrollLeft = slidesContainer.scrollLeft;
+            const containerWidth = slidesContainer.clientWidth;
+            const currentIndex = Math.round(scrollLeft / containerWidth);
             
-            sections.forEach((section, index) => {
-                const sectionTop = section.offsetTop;
-                const sectionBottom = sectionTop + section.offsetHeight;
-                
-                if (scrollPos >= sectionTop && scrollPos < sectionBottom) {
-                    currentSection = index;
-                    navDots.forEach((dot, dotIndex) => {
-                        dot.classList.toggle('active', dotIndex === index);
-                    });
-                }
+            currentSection = currentIndex;
+            navDots.forEach((dot, index) => {
+                dot.classList.toggle('active', index === currentIndex);
             });
+        }
+
+        // Slide to specific section
+        function slideToSection(index) {
+            if (index >= 0 && index < sections.length) {
+                isScrolling = true;
+                sections[index].scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'start' });
+                setTimeout(() => {
+                    isScrolling = false;
+                }, 1000);
+            }
+        }
+
+        // Slide to next
+        function slideToNext() {
+            if (currentSection < sections.length - 1) {
+                slideToSection(currentSection + 1);
+            }
+        }
+
+        // Slide to previous
+        function slideToPrev() {
+            if (currentSection > 0) {
+                slideToSection(currentSection - 1);
+            }
         }
 
         // Scroll to section when dot is clicked
         navDots.forEach((dot, index) => {
             dot.addEventListener('click', () => {
-                if (sections[index]) {
-                    isScrolling = true;
-                    sections[index].scrollIntoView({ behavior: 'smooth' });
-                    setTimeout(() => {
-                        isScrolling = false;
-                    }, 1000);
-                }
+                slideToSection(index);
             });
         });
 
         // Handle scroll events
         let scrollTimeout;
-        window.addEventListener('scroll', () => {
+        slidesContainer.addEventListener('scroll', () => {
             if (!isScrolling) {
                 clearTimeout(scrollTimeout);
                 scrollTimeout = setTimeout(updateActiveDot, 100);
@@ -835,54 +907,60 @@
         });
 
         // Keyboard navigation
-        let keyScrollTimeout;
         window.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowDown' || e.key === 'PageDown') {
+            if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === 'PageDown') {
                 e.preventDefault();
-                if (currentSection < sections.length - 1) {
-                    isScrolling = true;
-                    sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
-                    setTimeout(() => {
-                        isScrolling = false;
-                    }, 1000);
-                }
-            } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
+                slideToNext();
+            } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
                 e.preventDefault();
-                if (currentSection > 0) {
-                    isScrolling = true;
-                    sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
-                    setTimeout(() => {
-                        isScrolling = false;
-                    }, 1000);
-                }
+                slideToPrev();
             }
         });
 
-        // Mouse wheel navigation (with debounce)
+        // Mouse wheel navigation (horizontal)
         let wheelTimeout;
-        window.addEventListener('wheel', (e) => {
+        slidesContainer.addEventListener('wheel', (e) => {
             if (isScrolling) return;
             
+            e.preventDefault();
             clearTimeout(wheelTimeout);
             wheelTimeout = setTimeout(() => {
                 const delta = e.deltaY;
                 if (Math.abs(delta) > 50) {
-                    if (delta > 0 && currentSection < sections.length - 1) {
-                        isScrolling = true;
-                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, 1000);
-                    } else if (delta < 0 && currentSection > 0) {
-                        isScrolling = true;
-                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
-                        setTimeout(() => {
-                            isScrolling = false;
-                        }, 1000);
+                    if (delta > 0) {
+                        slideToNext();
+                    } else {
+                        slideToPrev();
                     }
                 }
             }, 50);
+        }, { passive: false });
+
+        // Touch swipe support
+        let touchStartX = 0;
+        let touchEndX = 0;
+
+        slidesContainer.addEventListener('touchstart', (e) => {
+            touchStartX = e.changedTouches[0].screenX;
         }, { passive: true });
+
+        slidesContainer.addEventListener('touchend', (e) => {
+            touchEndX = e.changedTouches[0].screenX;
+            handleSwipe();
+        }, { passive: true });
+
+        function handleSwipe() {
+            const swipeThreshold = 50;
+            const diff = touchStartX - touchEndX;
+            
+            if (Math.abs(diff) > swipeThreshold) {
+                if (diff > 0) {
+                    slideToNext();
+                } else {
+                    slideToPrev();
+                }
+            }
+        }
 
         // Initial update
         updateActiveDot();
