@@ -563,7 +563,7 @@
                 date: selectedDate.toISOString().split('T')[0],
                 time: selectedTime,
                 status: 'pending',
-                created_at: new Date().toISOString()
+                created_at: formatDateTime(new Date())
             };
 
             // 로컬스토리지에 저장

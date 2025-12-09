@@ -130,7 +130,7 @@ class SheetsManager:
                     worksheet.update_cell(row, 3, customer_data.get('phone', ''))
                     worksheet.update_cell(row, 4, customer_data.get('email', ''))
                     worksheet.update_cell(row, 5, customer_data.get('business', ''))
-                    worksheet.update_cell(row, 7, datetime.now().strftime('%Y-%m-%d %H:%M:%S'))
+                    worksheet.update_cell(row, 7, datetime.now().strftime('%Y%m%d%H%M%S'))
                     print(f"✅ 고객 정보 업데이트: {customer_id}")
                 except gspread.exceptions.CellNotFound:
                     # 새 고객 추가
@@ -140,8 +140,8 @@ class SheetsManager:
                         customer_data.get('phone', ''),
                         customer_data.get('email', ''),
                         customer_data.get('business', ''),
-                        datetime.now().strftime('%Y-%m-%d %H:%M:%S'),
-                        datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                        datetime.now().strftime('%Y%m%d%H%M%S'),
+                        datetime.now().strftime('%Y%m%d%H%M%S')
                     ]
                     worksheet.append_row(row)
                     print(f"✅ 새 고객 정보 저장: {customer_id}")
@@ -186,7 +186,7 @@ class SheetsManager:
                                 item.get('id', ''),
                                 item.get('text', ''),
                                 'Y' if item.get('checked', False) else 'N',
-                                datetime.now().strftime('%Y-%m-%d %H:%M:%S') if item.get('checked', False) else ''
+                                datetime.now().strftime('%Y%m%d%H%M%S') if item.get('checked', False) else ''
                             ]
                             worksheet.append_row(row)
                             rows_added += 1
@@ -228,7 +228,7 @@ class SheetsManager:
                     booking_data.get('time', ''),
                     booking_data.get('status', 'pending'),
                     booking_data.get('notes', ''),
-                    datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+                    datetime.now().strftime('%Y%m%d%H%M%S')
                 ]
                 worksheet.append_row(row)
                 print(f"✅ 새 상담 예약 저장: {customer_id}")
