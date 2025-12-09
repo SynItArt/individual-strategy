@@ -812,9 +812,9 @@
             dot.addEventListener('click', () => {
                 if (sections[index]) {
                     isScrolling = true;
-                    // 맞춤형 제안서 섹션으로 이동할 때는 더 느리게
+                    // 맞춤형 제안서 섹션으로 이동할 때는 적절히 느리게
                     const isProposalSection = index === 0;
-                    const scrollDelay = isProposalSection ? 5000 : 2000; // 제안서 섹션은 5초 대기
+                    const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
                     sections[index].scrollIntoView({ behavior: 'smooth', block: 'start' });
                     setTimeout(() => {
                         isScrolling = false;
@@ -868,60 +868,31 @@
         window.addEventListener('wheel', (e) => {
             if (isScrolling) return;
             
-            // 맞춤형 제안서 섹션(section-0)에서는 훨씬 더 느리게
+            // 맞춤형 제안서 섹션(section-0)에서는 적절히 느리게 (버튼 클릭 가능하도록)
             const isProposalSection = currentSection === 0;
+            const debounceTime = isProposalSection ? 200 : 50; // 제안서 섹션은 200ms 대기
+            const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
+            const wheelThreshold = isProposalSection ? 80 : 50; // 제안서 섹션은 약간 높은 임계값
             
-            // 제안서 섹션에서는 마우스 휠 스크롤을 거의 비활성화 (버튼 클릭 가능하도록)
-            if (isProposalSection) {
-                // 제안서 섹션에서는 휠 스크롤을 매우 느리게 (1초 이상 대기)
-                const debounceTime = 1000; // 1초 대기
-                const scrollDelay = 5000; // 5초 대기
-                const wheelThreshold = 150; // 휠 감지 임계값 높임 (더 많이 스크롤해야 이동)
-                
-                clearTimeout(wheelTimeout);
-                wheelTimeout = setTimeout(() => {
-                    const delta = e.deltaY;
-                    if (Math.abs(delta) > wheelThreshold) { // 임계값 높임
-                        if (delta > 0 && currentSection < sections.length - 1) {
-                            isScrolling = true;
-                            sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            setTimeout(() => {
-                                isScrolling = false;
-                            }, scrollDelay);
-                        } else if (delta < 0 && currentSection > 0) {
-                            isScrolling = true;
-                            sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            setTimeout(() => {
-                                isScrolling = false;
-                            }, scrollDelay);
-                        }
+            clearTimeout(wheelTimeout);
+            wheelTimeout = setTimeout(() => {
+                const delta = e.deltaY;
+                if (Math.abs(delta) > wheelThreshold) {
+                    if (delta > 0 && currentSection < sections.length - 1) {
+                        isScrolling = true;
+                        sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setTimeout(() => {
+                            isScrolling = false;
+                        }, scrollDelay);
+                    } else if (delta < 0 && currentSection > 0) {
+                        isScrolling = true;
+                        sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
+                        setTimeout(() => {
+                            isScrolling = false;
+                        }, scrollDelay);
                     }
-                }, debounceTime);
-            } else {
-                // 다른 섹션은 기존대로
-                const debounceTime = 50;
-                const scrollDelay = 2000;
-                
-                clearTimeout(wheelTimeout);
-                wheelTimeout = setTimeout(() => {
-                    const delta = e.deltaY;
-                    if (Math.abs(delta) > 50) {
-                        if (delta > 0 && currentSection < sections.length - 1) {
-                            isScrolling = true;
-                            sections[currentSection + 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            setTimeout(() => {
-                                isScrolling = false;
-                            }, scrollDelay);
-                        } else if (delta < 0 && currentSection > 0) {
-                            isScrolling = true;
-                            sections[currentSection - 1].scrollIntoView({ behavior: 'smooth', block: 'start' });
-                            setTimeout(() => {
-                                isScrolling = false;
-                            }, scrollDelay);
-                        }
-                    }
-                }, debounceTime);
-            }
+                }
+            }, debounceTime);
         }, { passive: true });
 
         // Touch swipe support (모바일)
@@ -938,10 +909,10 @@
         }, { passive: true });
 
         function handleSwipe() {
-            // 맞춤형 제안서 섹션에서는 스와이프를 훨씬 더 느리게
+            // 맞춤형 제안서 섹션에서는 스와이프를 적절히 느리게
             const isProposalSection = currentSection === 0;
-            const swipeThreshold = isProposalSection ? 150 : 50; // 제안서 섹션은 임계값 높임
-            const scrollDelay = isProposalSection ? 5000 : 2000; // 제안서 섹션은 5초 대기
+            const swipeThreshold = isProposalSection ? 80 : 50; // 제안서 섹션은 약간 높은 임계값
+            const scrollDelay = isProposalSection ? 2500 : 2000; // 제안서 섹션은 2.5초 대기
             const diff = touchStartY - touchEndY;
             
             if (Math.abs(diff) > swipeThreshold) {
