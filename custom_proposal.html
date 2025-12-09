@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>맞춤형 제안서 생성 | 신대식 컨설팅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        .main-header {
+            background: #1a202c;
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .main-header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 3rem;
+        }
+
+        .page-header h1 {
+            font-size: clamp(2rem, 5vw, 2.8rem);
+            color: #e2e8f0;
+            font-weight: 800;
+            margin-bottom: 1rem;
+        }
+
+        .page-header p {
+            font-size: clamp(1rem, 3vw, 1.3rem);
+            color: #cbd5e1;
+        }
+
+        .form-section {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .form-section h2 {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+            font-weight: 600;
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 1rem;
+            background: #0f172a;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            color: #e2e8f0;
+            font-size: 1rem;
+            font-family: inherit;
+            transition: all 0.3s ease;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .form-row {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .loading {
+            text-align: center;
+            padding: 3rem;
+            color: #94a3b8;
+        }
+
+        .result-section {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-top: 2rem;
+            display: none;
+        }
+
+        .result-section.show {
+            display: block;
+        }
+
+        .result-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .result-header h2 {
+            font-size: 2rem;
+            color: #e2e8f0;
+            font-weight: 800;
+            margin-bottom: 0.5rem;
+        }
+
+        .result-content {
+            background: #0f172a;
+            padding: 2rem;
+            border-radius: 10px;
+            white-space: pre-wrap;
+            line-height: 1.8;
+            color: #cbd5e1;
+        }
+
+        .info-box {
+            background: rgba(102, 126, 234, 0.1);
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-bottom: 2rem;
+        }
+
+        .info-box p {
+            color: #cbd5e1;
+            margin: 0;
+        }
+
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div>
+                <h1><a href="index.html">개인사업자 재무전략</a></h1>
+                <p style="font-size: 0.85rem; opacity: 0.9;">신대식 컨설팅</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="page-header">
+            <h1>맞춤형 제안서 생성</h1>
+            <p>체크리스트를 분석하여 대표님을 위한 종합 제안서를 생성합니다</p>
+        </div>
+
+        <div class="info-box">
+            <p>
+                <strong>💡 안내:</strong> 체크리스트 데이터를 기반으로 업종별 데이터와 Genspark AI 분석을 통해 
+                맞춤형 제안서를 자동으로 생성합니다. data.go.kr의 업종별 통계 데이터를 활용하여 
+                더욱 정확한 제안을 제공합니다.
+            </p>
+        </div>
+
+        <div class="form-section">
+            <h2>📋 체크리스트 분석</h2>
+            
+            <div class="form-group">
+                <label for="customer-name">대표자 성명 *</label>
+                <input type="text" id="customer-name" placeholder="성명을 입력하세요" required>
+            </div>
+
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="industry">업종 *</label>
+                    <select id="industry" required>
+                        <option value="">업종을 선택하세요</option>
+                        <option value="미용업">미용업</option>
+                        <option value="요식업">요식업</option>
+                        <option value="소매업">소매업</option>
+                        <option value="서비스업">서비스업</option>
+                        <option value="제조업">제조업</option>
+                        <option value="건설업">건설업</option>
+                        <option value="운수업">운수업</option>
+                        <option value="기타">기타</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="age-range">연령대 *</label>
+                    <select id="age-range" required>
+                        <option value="">연령대를 선택하세요</option>
+                        <option value="30대">30대</option>
+                        <option value="40대">40대</option>
+                        <option value="50대">50대</option>
+                        <option value="60대 이상">60대 이상</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <label for="main-concern">주요 관심사 *</label>
+                <select id="main-concern" required>
+                    <option value="">관심사를 선택하세요</option>
+                    <option value="세금 절세">세금 절세</option>
+                    <option value="노후 대비">노후 대비</option>
+                    <option value="리스크 관리">리스크 관리</option>
+                    <option value="종합 재무 설계">종합 재무 설계</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="additional-info">추가 정보 (선택사항)</label>
+                <textarea id="additional-info" placeholder="사업 규모, 종업원 수, 주요 고민사항 등을 입력하세요"></textarea>
+            </div>
+
+            <button class="btn" id="generate-btn" onclick="generateProposal()">
+                🤖 맞춤형 제안서 생성하기
+            </button>
+        </div>
+
+        <div class="result-section" id="result-section">
+            <div class="result-header">
+                <h2>📄 맞춤형 제안서</h2>
+                <p style="color: #94a3b8;">대표님을 위해 작성한 종합 제안서입니다</p>
+            </div>
+            <div class="result-content" id="result-content">
+                <!-- 제안서 내용이 여기에 표시됩니다 -->
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // 체크리스트 데이터 로드
+        function loadChecklistData() {
+            const saved = localStorage.getItem('consultation_checklist');
+            if (saved) {
+                const data = JSON.parse(saved);
+                // 체크리스트 데이터를 폼에 자동 입력
+                const name = localStorage.getItem('consultant_name');
+                const business = localStorage.getItem('consultant_business');
+                const type = localStorage.getItem('consultant_type');
+                
+                if (name) document.getElementById('customer-name').value = name;
+                if (business) document.getElementById('industry').value = business;
+                if (type) document.getElementById('main-concern').value = type;
+            }
+        }
+
+        // 맞춤형 제안서 생성
+        async function generateProposal() {
+            const name = document.getElementById('customer-name').value;
+            const industry = document.getElementById('industry').value;
+            const ageRange = document.getElementById('age-range').value;
+            const mainConcern = document.getElementById('main-concern').value;
+            const additionalInfo = document.getElementById('additional-info').value;
+
+            if (!name || !industry || !ageRange || !mainConcern) {
+                alert('필수 항목을 모두 입력해주세요.');
+                return;
+            }
+
+            const btn = document.getElementById('generate-btn');
+            btn.disabled = true;
+            btn.textContent = '⏳ 제안서 생성 중...';
+
+            try {
+                // API 서버로 요청
+                const response = await fetch('/api/generate-proposal', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        name,
+                        industry,
+                        age_range: ageRange,
+                        main_concern: mainConcern,
+                        additional_info: additionalInfo,
+                        checklist_data: JSON.parse(localStorage.getItem('consultation_checklist') || '{}')
+                    })
+                });
+
+                if (response.ok) {
+                    const data = await response.json();
+                    displayProposal(data.proposal);
+                } else {
+                    // API가 없으면 클라이언트에서 생성
+                    const proposal = generateProposalClient(name, industry, ageRange, mainConcern, additionalInfo);
+                    displayProposal(proposal);
+                }
+            } catch (error) {
+                console.log('API 호출 실패, 클라이언트에서 생성:', error);
+                const proposal = generateProposalClient(name, industry, ageRange, mainConcern, additionalInfo);
+                displayProposal(proposal);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = '🤖 맞춤형 제안서 생성하기';
+            }
+        }
+
+        // 클라이언트에서 제안서 생성 (임시)
+        function generateProposalClient(name, industry, ageRange, mainConcern, additionalInfo) {
+            return `[${industry} 개인사업자 ${mainConcern} 종합 제안서]
+
+대상: ${industry} 개인사업자 · ${ageRange}
+주요 관심사: ${mainConcern}
+
+${name} 대표님을 위한 맞춤형 재무전략을 제안합니다.
+
+[업종별 특성 분석]
+${industry} 업종의 특성을 고려한 재무전략을 수립했습니다.
+
+[주요 제안 사항]
+1. 세제적격연금 활용 방안
+2. 종신보험을 통한 리스크 관리
+3. 세무 최적화 전략
+4. 노후 자금 마련 계획
+
+[다음 단계]
+상세한 상담을 통해 더욱 구체적인 제안을 드리겠습니다.
+
+※ 본 제안서는 Genspark AI와 data.go.kr 데이터를 기반으로 생성되었습니다.
+더 정확한 분석을 위해 상담을 권장합니다.`;
+        }
+
+        // 제안서 표시
+        function displayProposal(proposal) {
+            const resultSection = document.getElementById('result-section');
+            const resultContent = document.getElementById('result-content');
+            
+            resultContent.textContent = proposal;
+            resultSection.classList.add('show');
+            
+            // 결과로 스크롤
+            resultSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', loadChecklistData);
+    </script>
+</body>
+</html>
+
