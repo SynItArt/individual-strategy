@@ -656,12 +656,6 @@
                     </div>
                 </div>
                 
-                <div class="profile-link">
-                    <a href="https://synitart.github.io/corporate-strategy/%EF%BD%93%EF%BD%99%EF%BD%8E.html" target="_blank">상세 프로필 보기 →</a>
-                    <p style="margin-top: 1rem; font-size: 0.9rem; opacity: 0.8; color: #94a3b8;">
-                        (상세 프로필 페이지에서 "개인사업자 페이지로 돌아가기" 버튼을 통해 돌아올 수 있습니다)
-                    </p>
-                </div>
             </div>
         </div>
         <div class="scroll-indicator">스크롤하여 더 보기</div>
@@ -709,54 +703,16 @@
         </div>
     </section>
 
-    <!-- Services Section -->
-    <section class="services-section" id="section-2">
+    <!-- Profile Link Section -->
+    <section class="transition-section" id="section-profile">
         <div class="container">
-            <div class="section-header">
-                <h2>이런 일도 합니다</h2>
-                <p>개인사업자님을 위한 4가지 핵심 전략</p>
-            </div>
-            
-            <div class="services-grid">
-                <div class="service-card">
-                    <div class="service-icon">📊</div>
-                    <h3>PART 1 · 사업소득과 세금</h3>
-                    <p>
-                        사업소득 신고서를 한 장으로 요약하고, 
-                        "좋다/보통/주의" 3색으로 현재 위치를 파악합니다.
-                    </p>
-                    <a href="presentations/part1-tax.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">💰</div>
-                    <h3>PART 2 · 노후 자금 마련</h3>
-                    <p>
-                        사업은 잘 되는데 개인 통장이 비어있을 때, 
-                        세제적격연금과 종신보험을 활용한 노후 설계를 제안합니다.
-                    </p>
-                    <a href="presentations/part2-retirement.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">💼</div>
-                    <h3>PART 3 · 세무 절세 전략</h3>
-                    <p>
-                        세금이 너무 많이 나와 부담스러울 때, 
-                        합법적인 절세 방안을 단계별로 제시합니다.
-                    </p>
-                    <a href="presentations/part3-tax-saving.html" class="btn-service">자세히 보기 →</a>
-                </div>
-                
-                <div class="service-card">
-                    <div class="service-icon">🛡️</div>
-                    <h3>PART 4 · 리스크 관리</h3>
-                    <p>
-                        노후와 리스크 이야기를 꺼내기 어려울 때, 
-                        건강·사망·사업 리스크를 체계적으로 관리합니다.
-                    </p>
-                    <a href="presentations/part4-risk.html" class="btn-service">자세히 보기 →</a>
-                </div>
+            <div style="text-align: center;">
+                <a href="https://synitart.github.io/corporate-strategy/%EF%BD%93%EF%BD%99%EF%BD%8E.html" target="_blank" class="btn-transition" style="display: inline-block;">
+                    👤 상세 프로필 보기 →
+                </a>
+                <p style="margin-top: 1rem; font-size: clamp(0.9rem, 2vw, 1rem); color: #94a3b8; opacity: 0.8;">
+                    (상세 프로필 페이지에서 "개인사업자 페이지로 돌아가기" 버튼을 통해 돌아올 수 있습니다)
+                </p>
             </div>
         </div>
     </section>
@@ -856,7 +812,7 @@
                     sections[index].scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 1000);
+                    }, 2000);
                 }
             });
         });
@@ -880,7 +836,7 @@
                     sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 1000);
+                    }, 2000);
                 }
             } else if (e.key === 'ArrowUp' || e.key === 'PageUp') {
                 e.preventDefault();
@@ -889,7 +845,7 @@
                     sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 1000);
+                    }, 2000);
                 }
             }
         });
@@ -944,14 +900,14 @@
                     sections[currentSection + 1].scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 1000);
+                    }, 2000);
                 } else if (diff < 0 && currentSection > 0) {
                     // 위로 스와이프 (이전 섹션)
                     isScrolling = true;
                     sections[currentSection - 1].scrollIntoView({ behavior: 'smooth' });
                     setTimeout(() => {
                         isScrolling = false;
-                    }, 1000);
+                    }, 2000);
                 }
             }
         }
