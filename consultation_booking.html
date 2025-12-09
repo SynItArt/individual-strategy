@@ -1,0 +1,615 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>상담 일정 예약 | 신대식 컨설팅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .main-header {
+            background: #1a202c;
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .main-header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .section {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Calendar */
+        .calendar {
+            margin-top: 1rem;
+        }
+
+        .calendar-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .calendar-nav {
+            background: rgba(102, 126, 234, 0.2);
+            color: #667eea;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+        }
+
+        .calendar-nav:hover {
+            background: rgba(102, 126, 234, 0.3);
+        }
+
+        .calendar-month {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #e2e8f0;
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(7, 1fr);
+            gap: 0.5rem;
+        }
+
+        .calendar-day-header {
+            text-align: center;
+            padding: 0.75rem;
+            font-weight: 600;
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        .calendar-day {
+            aspect-ratio: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+            color: #cbd5e1;
+        }
+
+        .calendar-day:hover:not(.disabled):not(.selected) {
+            background: rgba(102, 126, 234, 0.2);
+        }
+
+        .calendar-day.disabled {
+            color: #475569;
+            cursor: not-allowed;
+            opacity: 0.3;
+        }
+
+        .calendar-day.today {
+            background: rgba(102, 126, 234, 0.3);
+            color: #667eea;
+            font-weight: 700;
+        }
+
+        .calendar-day.selected {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Time Slots */
+        .time-slots {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .time-slot {
+            background: #0f172a;
+            border: 2px solid rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            padding: 1rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #cbd5e1;
+        }
+
+        .time-slot:hover:not(.disabled):not(.selected) {
+            border-color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .time-slot.disabled {
+            opacity: 0.3;
+            cursor: not-allowed;
+        }
+
+        .time-slot.selected {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-color: #667eea;
+            color: white;
+            font-weight: 700;
+        }
+
+        /* Info Box */
+        .info-box {
+            background: #0f172a;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .info-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .info-item:last-child {
+            border-bottom: none;
+        }
+
+        .info-label {
+            color: #94a3b8;
+            font-weight: 600;
+        }
+
+        .info-value {
+            color: #e2e8f0;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            width: 100%;
+            margin-top: 1rem;
+            text-align: center;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .time-slots {
+                grid-template-columns: repeat(3, 1fr);
+            }
+
+            .btn-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div>
+                <h1><a href="index.html">개인사업자 재무전략</a></h1>
+                <p style="font-size: 0.85rem; opacity: 0.9;">신대식 컨설팅</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="status-badge" id="statusBadge">🟢 상담 예약 가능</div>
+
+        <!-- 체크리스트 진행률 -->
+        <div class="section">
+            <div class="section-title">📊 체크리스트 진행률</div>
+            <div style="margin-bottom: 1rem;">
+                <div style="display: flex; justify-content: space-between; margin-bottom: 0.5rem;">
+                    <span style="color: #cbd5e1;">준비 진행률</span>
+                    <span style="color: #e2e8f0; font-weight: 700;" id="progressPercent">0%</span>
+                </div>
+                <div style="width: 100%; height: 25px; background: #0f172a; border-radius: 15px; overflow: hidden;">
+                    <div id="progressFill" style="height: 100%; background: linear-gradient(90deg, #667eea, #764ba2); width: 0%; transition: width 0.3s; display: flex; align-items: center; justify-content: center; color: white; font-size: 0.85em; font-weight: bold;">0%</div>
+                </div>
+            </div>
+            <p style="color: #94a3b8; font-size: 0.9rem; margin-top: 1rem;">
+                체크리스트를 완성하시면 더 정확한 상담이 가능합니다.
+            </p>
+        </div>
+
+        <!-- 날짜 선택 -->
+        <div class="section">
+            <div class="section-title">📅 날짜 선택</div>
+            <div class="calendar">
+                <div class="calendar-header">
+                    <button class="calendar-nav" onclick="changeMonth(-1)">‹ 이전</button>
+                    <div class="calendar-month" id="calendarMonth">2025년 12월</div>
+                    <button class="calendar-nav" onclick="changeMonth(1)">다음 ›</button>
+                </div>
+                <div class="calendar-grid" id="calendarGrid">
+                    <!-- 캘린더가 여기에 동적으로 생성됩니다 -->
+                </div>
+            </div>
+        </div>
+
+        <!-- 시간 선택 -->
+        <div class="section">
+            <div class="section-title">⏰ 시간 선택</div>
+            <div class="time-slots" id="timeSlots">
+                <!-- 시간 슬롯이 여기에 동적으로 생성됩니다 -->
+            </div>
+        </div>
+
+        <!-- 상담 정보 확인 -->
+        <div class="section">
+            <div class="section-title">📋 상담 정보 확인</div>
+            <div class="info-box" id="consultationInfo">
+                <!-- 정보가 여기에 동적으로 표시됩니다 -->
+            </div>
+        </div>
+
+        <!-- 버튼 -->
+        <div class="btn-group">
+            <button class="btn" onclick="confirmBooking()">✅ 상담 일정 확정하기</button>
+            <a href="consultation_checklist.html" class="btn btn-secondary" style="text-decoration: none;">← 체크리스트로 돌아가기</a>
+        </div>
+    </div>
+
+    <script>
+        let currentDate = new Date();
+        let selectedDate = null;
+        let selectedTime = null;
+        let customerData = {};
+
+        // 체크리스트 데이터 로드
+        function loadChecklistData() {
+            const saved = localStorage.getItem('consultation_checklist');
+            if (saved) {
+                const data = JSON.parse(saved);
+                const total = document.querySelectorAll('input[type="checkbox"]').length || 50;
+                const checked = Object.values(data).flat().length;
+                const progress = Math.round((checked / total) * 100);
+                
+                document.getElementById('progressPercent').textContent = progress + '%';
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressFill').textContent = progress + '%';
+            }
+
+            // 고객 정보 로드
+            customerData = {
+                name: localStorage.getItem('consultant_name') || '',
+                phone: localStorage.getItem('consultant_phone') || '',
+                email: localStorage.getItem('consultant_email') || '',
+                business: localStorage.getItem('consultant_business') || '',
+                interest: localStorage.getItem('consultant_type') || ''
+            };
+
+            updateConsultationInfo();
+        }
+
+        // 캘린더 생성
+        function renderCalendar() {
+            const year = currentDate.getFullYear();
+            const month = currentDate.getMonth();
+            
+            document.getElementById('calendarMonth').textContent = `${year}년 ${month + 1}월`;
+
+            const firstDay = new Date(year, month, 1).getDay();
+            const daysInMonth = new Date(year, month + 1, 0).getDate();
+            const today = new Date();
+            const grid = document.getElementById('calendarGrid');
+            
+            grid.innerHTML = '';
+
+            // 요일 헤더
+            const dayNames = ['일', '월', '화', '수', '목', '금', '토'];
+            dayNames.forEach(day => {
+                const header = document.createElement('div');
+                header.className = 'calendar-day-header';
+                header.textContent = day;
+                grid.appendChild(header);
+            });
+
+            // 빈 칸
+            for (let i = 0; i < firstDay; i++) {
+                const empty = document.createElement('div');
+                grid.appendChild(empty);
+            }
+
+            // 날짜
+            for (let day = 1; day <= daysInMonth; day++) {
+                const date = new Date(year, month, day);
+                const dayEl = document.createElement('div');
+                dayEl.className = 'calendar-day';
+                dayEl.textContent = day;
+
+                // 오늘
+                if (date.toDateString() === today.toDateString()) {
+                    dayEl.classList.add('today');
+                }
+
+                // 과거 날짜 비활성화
+                if (date < today) {
+                    dayEl.classList.add('disabled');
+                } else {
+                    dayEl.addEventListener('click', () => selectDate(date));
+                }
+
+                // 선택된 날짜
+                if (selectedDate && date.toDateString() === selectedDate.toDateString()) {
+                    dayEl.classList.add('selected');
+                }
+
+                grid.appendChild(dayEl);
+            }
+        }
+
+        // 월 변경
+        function changeMonth(direction) {
+            currentDate.setMonth(currentDate.getMonth() + direction);
+            renderCalendar();
+            renderTimeSlots();
+        }
+
+        // 날짜 선택
+        function selectDate(date) {
+            selectedDate = date;
+            renderCalendar();
+            renderTimeSlots();
+            updateConsultationInfo();
+        }
+
+        // 시간 슬롯 생성
+        function renderTimeSlots() {
+            const slots = document.getElementById('timeSlots');
+            slots.innerHTML = '';
+
+            const timeOptions = [
+                '09:00', '10:00', '11:00',
+                '14:00', '15:00', '16:00', '17:00'
+            ];
+
+            timeOptions.forEach(time => {
+                const slot = document.createElement('div');
+                slot.className = 'time-slot';
+                slot.textContent = time;
+                slot.addEventListener('click', () => selectTime(time));
+                
+                if (selectedTime === time) {
+                    slot.classList.add('selected');
+                }
+
+                slots.appendChild(slot);
+            });
+        }
+
+        // 시간 선택
+        function selectTime(time) {
+            selectedTime = time;
+            renderTimeSlots();
+            updateConsultationInfo();
+        }
+
+        // 상담 정보 업데이트
+        function updateConsultationInfo() {
+            const info = document.getElementById('consultationInfo');
+            let html = '';
+
+            if (customerData.name) {
+                html += `<div class="info-item"><span class="info-label">성명</span><span class="info-value">${customerData.name}</span></div>`;
+            }
+            if (customerData.phone) {
+                html += `<div class="info-item"><span class="info-label">연락처</span><span class="info-value">${customerData.phone}</span></div>`;
+            }
+            if (customerData.business) {
+                html += `<div class="info-item"><span class="info-label">사업자명</span><span class="info-value">${customerData.business}</span></div>`;
+            }
+            if (customerData.interest) {
+                html += `<div class="info-item"><span class="info-label">주요 관심사</span><span class="info-value">${customerData.interest}</span></div>`;
+            }
+            if (selectedDate) {
+                const dateStr = selectedDate.toLocaleDateString('ko-KR', { 
+                    year: 'numeric', 
+                    month: 'long', 
+                    day: 'numeric',
+                    weekday: 'long'
+                });
+                html += `<div class="info-item"><span class="info-label">예약 날짜</span><span class="info-value">${dateStr}</span></div>`;
+            }
+            if (selectedTime) {
+                html += `<div class="info-item"><span class="info-label">예약 시간</span><span class="info-value">${selectedTime}</span></div>`;
+            }
+
+            if (!html) {
+                html = '<p style="color: #94a3b8; text-align: center;">상담 정보를 입력하고 날짜/시간을 선택해주세요.</p>';
+            }
+
+            info.innerHTML = html;
+        }
+
+        // 예약 확정
+        function confirmBooking() {
+            if (!selectedDate || !selectedTime) {
+                alert('날짜와 시간을 선택해주세요.');
+                return;
+            }
+
+            if (!customerData.name || !customerData.phone) {
+                alert('체크리스트 페이지에서 기본 정보를 먼저 입력해주세요.');
+                window.location.href = 'consultation_checklist.html';
+                return;
+            }
+
+            // 예약 데이터 저장
+            const booking = {
+                customer_id: localStorage.getItem('customer_id') || generateCustomerId(),
+                name: customerData.name,
+                phone: customerData.phone,
+                email: customerData.email,
+                business: customerData.business,
+                interest: customerData.interest,
+                date: selectedDate.toISOString().split('T')[0],
+                time: selectedTime,
+                status: 'pending',
+                created_at: new Date().toISOString()
+            };
+
+            // 로컬스토리지에 저장
+            localStorage.setItem('customer_id', booking.customer_id);
+            localStorage.setItem('consultation_booking', JSON.stringify(booking));
+
+            // API로 전송 (향후 구현)
+            sendBookingToServer(booking);
+
+            // 고객 상태 페이지로 이동
+            alert('상담 일정이 예약되었습니다!');
+            window.location.href = 'customer_status.html';
+        }
+
+        // 고객 ID 생성
+        function generateCustomerId() {
+            return 'CUST_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
+        }
+
+        // 서버로 예약 데이터 전송
+        async function sendBookingToServer(booking) {
+            try {
+                // API 엔드포인트 (향후 구현)
+                const response = await fetch('/api/consultation/booking', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(booking)
+                });
+
+                if (response.ok) {
+                    console.log('예약 데이터가 서버에 저장되었습니다.');
+                }
+            } catch (error) {
+                console.log('서버 저장 실패 (로컬 저장됨):', error);
+            }
+        }
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            loadChecklistData();
+            renderCalendar();
+            renderTimeSlots();
+        });
+    </script>
+</body>
+</html>
+

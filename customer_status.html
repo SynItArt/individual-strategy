@@ -1,0 +1,580 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>내 상담 상태 | 신대식 컨설팅</title>
+    <link href="https://fonts.googleapis.com/css2?family=Pretendard:wght@300;400;600;700;800&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #667eea;
+            --secondary: #764ba2;
+            --accent: #f093fb;
+            --success: #4ade80;
+            --warning: #fbbf24;
+            --dark: #1e293b;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Pretendard', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: #0f172a;
+            color: #e2e8f0;
+            line-height: 1.7;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        .main-header {
+            background: #1a202c;
+            color: white;
+            padding: 1.5rem 0;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+        
+        .header-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            flex-wrap: wrap;
+            gap: 1rem;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 1.5rem;
+        }
+        
+        .main-header h1 {
+            font-size: 1.5rem;
+            font-weight: 800;
+        }
+        
+        .main-header h1 a {
+            color: white;
+            text-decoration: none;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+
+        .status-badge {
+            display: inline-block;
+            background: rgba(74, 222, 128, 0.2);
+            color: #4ade80;
+            padding: 0.75rem 1.5rem;
+            border-radius: 25px;
+            font-size: 1rem;
+            font-weight: 600;
+            margin-bottom: 2rem;
+        }
+
+        .status-badge.pending {
+            background: rgba(251, 191, 36, 0.2);
+            color: #fbbf24;
+        }
+
+        .section {
+            background: #1a202c;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 20px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+        }
+
+        .section-title {
+            font-size: 1.5rem;
+            color: #e2e8f0;
+            margin-bottom: 1.5rem;
+            font-weight: 700;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        /* Progress Bar */
+        .progress-container {
+            margin: 1.5rem 0;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+            color: #cbd5e1;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 30px;
+            background: #0f172a;
+            border-radius: 15px;
+            overflow: hidden;
+        }
+
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #667eea, #764ba2);
+            transition: width 0.5s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 0.9rem;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .stat-card {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 10px;
+            text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: #667eea;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: #94a3b8;
+            font-size: 0.9rem;
+        }
+
+        /* Genspark Analysis */
+        .analysis-card {
+            background: #0f172a;
+            border-left: 4px solid #667eea;
+            padding: 1.5rem;
+            border-radius: 10px;
+            margin-top: 1rem;
+        }
+
+        .analysis-item {
+            padding: 0.75rem 0;
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .analysis-item:last-child {
+            border-bottom: none;
+        }
+
+        .analysis-label {
+            color: #94a3b8;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+        }
+
+        .analysis-value {
+            color: #e2e8f0;
+            font-size: 1.1rem;
+        }
+
+        .chart-placeholder {
+            background: #0f172a;
+            border: 2px dashed rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
+            padding: 3rem;
+            text-align: center;
+            color: #94a3b8;
+            margin-top: 1rem;
+        }
+
+        /* Document List */
+        .document-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .document-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            background: #0f172a;
+            border-radius: 10px;
+            margin-bottom: 0.5rem;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+        }
+
+        .document-item .icon {
+            font-size: 1.5rem;
+            margin-right: 1rem;
+        }
+
+        .document-item.checked .icon {
+            color: #4ade80;
+        }
+
+        .document-item.pending .icon {
+            color: #fbbf24;
+        }
+
+        /* Buttons */
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 1.5rem;
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            color: white;
+            text-decoration: none;
+            border-radius: 10px;
+            border: none;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.4);
+        }
+
+        .btn-secondary {
+            background: rgba(255, 255, 255, 0.1);
+            color: #e2e8f0;
+        }
+
+        .btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        .loading {
+            text-align: center;
+            padding: 2rem;
+            color: #94a3b8;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .section {
+                padding: 1.5rem;
+            }
+
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="main-header">
+        <div class="header-content">
+            <div>
+                <h1><a href="index.html">개인사업자 재무전략</a></h1>
+                <p style="font-size: 0.85rem; opacity: 0.9;">신대식 컨설팅</p>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <h2 style="font-size: clamp(1.5rem, 4vw, 2rem); margin-bottom: 1rem; color: #e2e8f0;">
+            📊 내 상담 상태
+        </h2>
+        <div class="status-badge pending" id="statusBadge">⏳ 상담 예정</div>
+
+        <!-- 체크리스트 진행률 -->
+        <div class="section">
+            <div class="section-title">📈 체크리스트 진행률</div>
+            <div class="progress-container">
+                <div class="progress-info">
+                    <span>준비 진행률</span>
+                    <span id="progressPercent">0%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" id="progressFill" style="width: 0%">0%</div>
+                </div>
+            </div>
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-value" id="checkedCount">0</div>
+                    <div class="stat-label">완료 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="totalCount">0</div>
+                    <div class="stat-label">전체 항목</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-value" id="remainingCount">0</div>
+                    <div class="stat-label">남은 항목</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 상담 일정 -->
+        <div class="section">
+            <div class="section-title">📅 상담 일정</div>
+            <div class="analysis-card" id="consultationSchedule">
+                <div class="loading">상담 일정 정보를 불러오는 중...</div>
+            </div>
+        </div>
+
+        <!-- Genspark 분석 결과 -->
+        <div class="section">
+            <div class="section-title">📊 Genspark 분석 결과</div>
+            <div class="analysis-card" id="gensparkAnalysis">
+                <div class="loading">분석 결과를 불러오는 중...</div>
+            </div>
+            <div class="chart-placeholder" id="chartPlaceholder">
+                📈 차트가 여기에 표시됩니다<br>
+                <small style="color: #64748b;">Genspark 분석이 완료되면 자동으로 업데이트됩니다</small>
+            </div>
+        </div>
+
+        <!-- 준비된 서류 -->
+        <div class="section">
+            <div class="section-title">📋 준비된 서류</div>
+            <ul class="document-list" id="documentList">
+                <!-- 서류 목록이 여기에 동적으로 표시됩니다 -->
+            </ul>
+        </div>
+
+        <!-- 액션 버튼 -->
+        <div style="text-align: center; margin-top: 2rem;">
+            <a href="consultation_booking.html" class="btn">📅 일정 변경</a>
+            <a href="consultation_checklist.html" class="btn btn-secondary">📋 체크리스트 수정</a>
+            <a href="tel:01020885383" class="btn btn-secondary">📞 문의하기</a>
+        </div>
+    </div>
+
+    <script>
+        let customerId = null;
+        let consultationData = null;
+
+        // 초기화
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCustomerData();
+            loadChecklistProgress();
+            loadConsultationSchedule();
+            loadGensparkAnalysis();
+            loadDocuments();
+        });
+
+        // 고객 데이터 로드
+        function loadCustomerData() {
+            customerId = localStorage.getItem('customer_id');
+            if (!customerId) {
+                // 고객 ID가 없으면 체크리스트 페이지로 리다이렉트
+                alert('체크리스트를 먼저 작성해주세요.');
+                window.location.href = 'consultation_checklist.html';
+                return;
+            }
+
+            // 예약 데이터 로드
+            const booking = localStorage.getItem('consultation_booking');
+            if (booking) {
+                consultationData = JSON.parse(booking);
+            }
+        }
+
+        // 체크리스트 진행률 로드
+        function loadChecklistProgress() {
+            const saved = localStorage.getItem('consultation_checklist');
+            if (saved) {
+                const data = JSON.parse(saved);
+                const checked = Object.values(data).flat().length;
+                const total = 50; // 전체 체크리스트 항목 수 (실제로는 동적으로 계산)
+                const progress = Math.round((checked / total) * 100);
+
+                document.getElementById('progressPercent').textContent = progress + '%';
+                document.getElementById('progressFill').style.width = progress + '%';
+                document.getElementById('progressFill').textContent = progress + '%';
+                document.getElementById('checkedCount').textContent = checked;
+                document.getElementById('totalCount').textContent = total;
+                document.getElementById('remainingCount').textContent = total - checked;
+            }
+        }
+
+        // 상담 일정 로드
+        function loadConsultationSchedule() {
+            const schedule = document.getElementById('consultationSchedule');
+            
+            if (consultationData) {
+                const date = new Date(consultationData.date);
+                const dateStr = date.toLocaleDateString('ko-KR', {
+                    year: 'numeric',
+                    month: 'long',
+                    day: 'numeric',
+                    weekday: 'long'
+                });
+
+                schedule.innerHTML = `
+                    <div class="analysis-item">
+                        <div class="analysis-label">예약 날짜</div>
+                        <div class="analysis-value">${dateStr}</div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-label">예약 시간</div>
+                        <div class="analysis-value">${consultationData.time}</div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-label">상태</div>
+                        <div class="analysis-value">${consultationData.status === 'pending' ? '⏳ 예약 대기 중' : '✅ 확정'}</div>
+                    </div>
+                `;
+
+                // 상태 배지 업데이트
+                const badge = document.getElementById('statusBadge');
+                if (consultationData.status === 'pending') {
+                    badge.className = 'status-badge pending';
+                    badge.textContent = `⏳ 상담 예정 (${dateStr.split(' ')[0]} ${consultationData.time})`;
+                } else {
+                    badge.className = 'status-badge';
+                    badge.textContent = `🟢 상담 확정 (${dateStr.split(' ')[0]} ${consultationData.time})`;
+                }
+            } else {
+                schedule.innerHTML = '<p style="color: #94a3b8; text-align: center;">상담 일정이 예약되지 않았습니다.</p>';
+            }
+        }
+
+        // Genspark 분석 결과 로드
+        async function loadGensparkAnalysis() {
+            const analysis = document.getElementById('gensparkAnalysis');
+            const chartPlaceholder = document.getElementById('chartPlaceholder');
+
+            // 서버에서 분석 결과 가져오기 (향후 구현)
+            try {
+                const response = await fetch(`/api/genspark/analysis/${customerId}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    displayAnalysis(data);
+                } else {
+                    // 임시 데이터 표시
+                    displayMockAnalysis();
+                }
+            } catch (error) {
+                // 임시 데이터 표시
+                displayMockAnalysis();
+            }
+        }
+
+        // 분석 결과 표시 (임시)
+        function displayMockAnalysis() {
+            const analysis = document.getElementById('gensparkAnalysis');
+            const saved = localStorage.getItem('consultation_checklist');
+            
+            if (saved) {
+                const data = JSON.parse(saved);
+                const customerData = {
+                    name: localStorage.getItem('consultant_name') || '고객',
+                    business: localStorage.getItem('consultant_business') || '',
+                    interest: localStorage.getItem('consultant_type') || ''
+                };
+
+                analysis.innerHTML = `
+                    <div class="analysis-item">
+                        <div class="analysis-label">업종</div>
+                        <div class="analysis-value">${customerData.business || '미입력'}</div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-label">주요 관심사</div>
+                        <div class="analysis-value">${customerData.interest || '미입력'}</div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-label">체크리스트 완성도</div>
+                        <div class="analysis-value">${document.getElementById('progressPercent').textContent}</div>
+                    </div>
+                    <div class="analysis-item">
+                        <div class="analysis-label">추천 전략</div>
+                        <div class="analysis-value">체크리스트 완성 후 분석 예정</div>
+                    </div>
+                `;
+            } else {
+                analysis.innerHTML = '<p style="color: #94a3b8; text-align: center;">체크리스트를 작성하면 분석 결과가 표시됩니다.</p>';
+            }
+
+            chartPlaceholder.innerHTML = `
+                📈 Genspark 분석 차트<br>
+                <small style="color: #64748b;">체크리스트 완성 후 자동으로 분석됩니다</small>
+            `;
+        }
+
+        // 실제 분석 결과 표시
+        function displayAnalysis(data) {
+            const analysis = document.getElementById('gensparkAnalysis');
+            analysis.innerHTML = `
+                <div class="analysis-item">
+                    <div class="analysis-label">업종</div>
+                    <div class="analysis-value">${data.industry || 'N/A'}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">예상 세금 절감액</div>
+                    <div class="analysis-value">${data.tax_saving || 'N/A'}</div>
+                </div>
+                <div class="analysis-item">
+                    <div class="analysis-label">추천 전략</div>
+                    <div class="analysis-value">${data.recommended_strategy || 'N/A'}</div>
+                </div>
+            `;
+
+            if (data.chart_url) {
+                const chartPlaceholder = document.getElementById('chartPlaceholder');
+                chartPlaceholder.innerHTML = `<img src="${data.chart_url}" alt="분석 차트" style="max-width: 100%; border-radius: 10px;">`;
+            }
+        }
+
+        // 서류 목록 로드
+        function loadDocuments() {
+            const list = document.getElementById('documentList');
+            const saved = localStorage.getItem('consultation_checklist');
+            
+            if (saved) {
+                const data = JSON.parse(saved);
+                const documents = data.documents || [];
+                
+                const documentNames = [
+                    '종합소득세 신고서',
+                    '부가가치세 신고서',
+                    '매출장부',
+                    '사업자 통장 거래내역',
+                    '가입 보험 증권'
+                ];
+
+                list.innerHTML = '';
+                documentNames.forEach((doc, index) => {
+                    const isChecked = documents.includes(index.toString());
+                    const item = document.createElement('li');
+                    item.className = `document-item ${isChecked ? 'checked' : 'pending'}`;
+                    item.innerHTML = `
+                        <span class="icon">${isChecked ? '✓' : '○'}</span>
+                        <span>${doc}</span>
+                    `;
+                    list.appendChild(item);
+                });
+            } else {
+                list.innerHTML = '<li style="color: #94a3b8; text-align: center; padding: 2rem;">체크리스트를 작성하면 서류 목록이 표시됩니다.</li>';
+            }
+        }
+
+        // 주기적으로 데이터 업데이트 (실시간)
+        setInterval(() => {
+            loadChecklistProgress();
+            loadGensparkAnalysis();
+        }, 30000); // 30초마다 업데이트
+    </script>
+</body>
+</html>
+
